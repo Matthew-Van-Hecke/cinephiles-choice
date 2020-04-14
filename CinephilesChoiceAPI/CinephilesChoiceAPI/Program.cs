@@ -13,6 +13,7 @@ namespace CinephilesChoiceAPI
     {
         public static void Main(string[] args)
         {
+            CSVReader.ReadCSV("");
             CreateHostBuilder(args).Build().Run();
         }
 
