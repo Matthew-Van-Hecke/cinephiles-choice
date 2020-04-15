@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CinephilesChoice;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -15,20 +16,20 @@ namespace CinephilesChoiceAPI.Services
             string movieQuery = BuildURLStringFromMovieInfo(movieTitle, year);
             JObject movie;
             HttpClient client = new HttpClient();
-            
-                var response = await client.GetAsync(@"http://www.omdbapi.com/?apikey=" + movieQuery);
-                var data = await response.Content.ReadAsStringAsync();
-                movie = JsonConvert.DeserializeObject<JObject>(data);
-                if (movie["Response"].ToString() == "False" && year != 0 && attemptNumber < 2)
+
+            var response = await client.GetAsync(@"http://www.omdbapi.com/?apikey=" + movieQuery);
+            var data = await response.Content.ReadAsStringAsync();
+            movie = JsonConvert.DeserializeObject<JObject>(data);
+            if (movie["Response"].ToString() == "False" && year != 0 && attemptNumber < 2)
+            {
+                switch (attemptNumber)
                 {
-                    switch (attemptNumber)
-                    {
-                        case 0:
-                            return await GetMovie(movieTitle, (year + 1), (attemptNumber + 1));
-                        case 1:
-                            return await GetMovie(movieTitle, (year - 2), (attemptNumber + 1));
-                    }
+                    case 0:
+                        return await GetMovie(movieTitle, (year + 1), (attemptNumber + 1));
+                    case 1:
+                        return await GetMovie(movieTitle, (year - 2), (attemptNumber + 1));
                 }
+            }
             //client.Dispose();
             return movie;
         }

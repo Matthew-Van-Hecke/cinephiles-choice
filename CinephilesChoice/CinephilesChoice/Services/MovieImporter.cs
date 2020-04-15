@@ -6,15 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CinephilesChoiceAPI.Services
+namespace CinephilesChoice.Services
 {
     public class MovieImporter
     {
-        private IRepositoryWrapper _repo;
-        public MovieImporter(IRepositoryWrapper repo)
-        {
-            _repo = repo;
-        }
         public async void ImportMovies()
         {
             int newMovieId;
