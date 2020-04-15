@@ -14,6 +14,7 @@ namespace CinephilesChoiceAPI
     {
         public static void Main(string[] args)
         {
+            OMDbAPI.GetMovie("A Sister", 2019);
             CreateHostBuilder(args).Build().Run();
         }
 

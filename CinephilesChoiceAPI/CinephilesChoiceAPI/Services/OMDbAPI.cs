@@ -10,7 +10,7 @@ namespace CinephilesChoiceAPI.Services
 {
     public static class OMDbAPI
     {
-        public static async Task<JObject> GetMovie(string movieTitle, int year = 0)
+        public static async Task<JObject> GetMovie(string movieTitle, int year = 0, int attemptNumber = 0)
         {
             string movieQuery = BuildURLStringFromMovieInfo(movieTitle, year);
             using (HttpClient client = new HttpClient())
@@ -18,6 +18,16 @@ namespace CinephilesChoiceAPI.Services
                 HttpResponseMessage response = await client.GetAsync(@"http://www.omdbapi.com/?apikey=" + movieQuery);
                 var data = await response.Content.ReadAsStringAsync();
                 JObject movie = JsonConvert.DeserializeObject<JObject>(data);
+                if (movie["Response"].ToString() == "False" && year != 0 && attemptNumber < 2)
+                {
+                    switch (attemptNumber)
+                    {
+                        case 0:
+                            return await GetMovie(movieTitle, (year + 1), (attemptNumber + 1));
+                        case 1:
+                            return await GetMovie(movieTitle, (year - 2), (attemptNumber + 1));
+                    }
+                }
                 return movie;
             }
         }
