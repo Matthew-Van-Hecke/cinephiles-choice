@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CinephilesChoiceAPI.Contracts;
 using CinephilesChoiceAPI.Models;
 using Google;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +29,11 @@ namespace CinephilesChoiceAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("sqlConnection")));
+
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+
             services.AddControllers();
             services.AddCors(options =>
             {
@@ -36,9 +42,6 @@ namespace CinephilesChoiceAPI
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
-
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("sqlConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

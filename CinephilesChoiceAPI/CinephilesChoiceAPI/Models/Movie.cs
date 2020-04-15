@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace CinephilesChoiceAPI
+namespace CinephilesChoiceAPI.Models
 {
     public class Movie
     {
