@@ -10,9 +10,9 @@ namespace CinephilesChoiceAPI.Services
 {
     public static class OMDbAPI
     {
-        public static async Task<JObject> GetMovie(string movieTitle)
+        public static async Task<JObject> GetMovie(string movieTitle, int year = 0)
         {
-            string movieQuery = "";
+            string movieQuery = BuildURLStringFromMovieInfo(movieTitle, year);
             using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync(@"http://www.omdbapi.com/?apikey=" + movieQuery);
@@ -21,15 +21,15 @@ namespace CinephilesChoiceAPI.Services
                 return movie;
             }
         }
-        //public string BuildURLStringFromMovieInfo(string movieTitle, int year = 0)
-        //{
-        //    string result = "t=" + movieTitle.Replace(' ', '+');
-        //    if (year != 0)
-        //    {
-        //        result += "y=" + year.ToString();
-        //    }
-        //    result = API_Keys.OMDbAPIKey + result;
-        //    return result;
-        //}
+        public static string BuildURLStringFromMovieInfo(string movieTitle, int year)
+        {
+            string result = "t=" + movieTitle.Replace(' ', '+');
+            if (year != 0)
+            {
+                result += "&y=" + year.ToString();
+            }
+            result = API_Keys.OMDbAPIKey + "&" + result;
+            return result;
+        }
     }
 }
