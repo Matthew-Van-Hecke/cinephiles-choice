@@ -1,4 +1,5 @@
 ﻿using CinephilesChoiceAPI.Models;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,5 +9,6 @@ namespace CinephilesChoiceAPI.Contracts
 {
     public interface IMovieRepository : IRepositoryBase<Movie>
     {
+        void CreateMovieFromJObject(string jsonMovie);
     }
 }

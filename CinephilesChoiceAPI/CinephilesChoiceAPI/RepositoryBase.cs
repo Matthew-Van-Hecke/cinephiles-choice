@@ -11,7 +11,7 @@ namespace CinephilesChoiceAPI
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        protected ApplicationDbContext ApplicationDbContext { get; set; }
+        private readonly ApplicationDbContext ApplicationDbContext;
         public RepositoryBase(ApplicationDbContext applicationDbContext)
         {
             ApplicationDbContext = applicationDbContext;

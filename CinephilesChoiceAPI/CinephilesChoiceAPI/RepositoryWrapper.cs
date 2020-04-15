@@ -10,7 +10,7 @@ namespace CinephilesChoiceAPI
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private IMoviegoerRepository _moviegoer;
         private IMovieRepository _movie;
         private INominationRepository _nomination;

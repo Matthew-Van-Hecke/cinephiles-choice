@@ -11,6 +11,7 @@ namespace CinephilesChoiceAPI.Models
     {
         [Key]
         public int Id { get; set; }
+        public string Nominee { get; set; }
         [ForeignKey("Movie")]
         public int MovieId { get; set; }
         public Movie Movie { get; set; }

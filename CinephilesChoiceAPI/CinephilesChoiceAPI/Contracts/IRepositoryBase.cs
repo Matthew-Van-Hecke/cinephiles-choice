@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CinephilesChoiceAPI.Contracts
 {
-    public interface IRepositoryBase<T>
+    public interface IRepositoryBase<T> where T : class
     {
         IQueryable<T> FindAll();
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);

@@ -10,10 +10,11 @@ namespace CinephilesChoiceAPI
 {
     public static class CSVReader
     {
-        public static List<Nomination> ReadCSV(string csvFilePath)
+        public static List<JObject> ReadCSV(string csvFilePath)
         {
             string[] lines = File.ReadAllLines(@"../../../oscar_nominees_csv.csv");
-            return new List<Nomination>();
+
+            return new List<JObject>();
         }
         //private static Nomination BuildNominationFromCSVLine(string csvLine)
         //{
