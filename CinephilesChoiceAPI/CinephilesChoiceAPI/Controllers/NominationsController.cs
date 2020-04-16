@@ -6,6 +6,8 @@ using CinephilesChoiceAPI.Contracts;
 using CinephilesChoiceAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CinephilesChoiceAPI.Controllers
 {
@@ -34,8 +36,11 @@ namespace CinephilesChoiceAPI.Controllers
 
         // POST: api/Nominations
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Nomination nomination)
         {
+            //Nomination nominationToAdd = JsonConvert.DeserializeObject<Nomination>(nominationJson);
+            _repo.Nomination.Create(nomination);
+            _repo.Save();
         }
 
         // PUT: api/Nominations/5
