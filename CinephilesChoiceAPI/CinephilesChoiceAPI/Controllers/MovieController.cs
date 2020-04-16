@@ -21,9 +21,10 @@ namespace CinephilesChoiceAPI.Controllers
         }
         // GET: api/Movie
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Movie> Get()
         {
-            return new string[] { "value1", "value2" };
+
+            return _repo.Movie.FindAll();
         }
 
         // GET: api/Movie/5

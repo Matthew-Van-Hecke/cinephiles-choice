@@ -21,7 +21,6 @@ namespace CinephilesChoice.Controllers
 
         public IActionResult Index()
         {
-            MovieImporter.ImportMovies();
             return View();
         }
 
