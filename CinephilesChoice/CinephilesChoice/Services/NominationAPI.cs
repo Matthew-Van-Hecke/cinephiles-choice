@@ -1,16 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using CinephilesChoice.Models;
+using Newtonsoft.Json;
 
 namespace CinephilesChoice.Services
 {
     public static class NominationAPI
     {
-        public static async void GetAll()
+        public static async Task<List<Nomination>> GetAll()
         {
-
+            List<Nomination> nominations;
+            using(HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync("https://localhost:44366/api/Nominations");
+                string data = await response.Content.ReadAsStringAsync();
+                nominations = JsonConvert.DeserializeObject<List<Nomination>>(data);
+            }
+            return nominations;
         }
         public static async void GetById(int id)
         {

@@ -21,8 +21,7 @@ namespace CinephilesChoice.Controllers
 
         public IActionResult Index()
         {
-            Movie movie = MovieAPI.GetById(411).GetAwaiter().GetResult();
-            MovieAPI.Delete(movie);
+            List<Nomination> nominations = NominationAPI.GetAll().GetAwaiter().GetResult();
             return View();
         }
 
