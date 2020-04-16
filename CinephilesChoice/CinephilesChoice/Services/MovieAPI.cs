@@ -1,5 +1,6 @@
 ﻿using CinephilesChoice.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,16 @@ namespace CinephilesChoice.Services
 {
     public static class MovieAPI
     {
-        public static void GetAll()
+        public static async Task<List<Movie>> GetAll()
         {
-
+            List<Movie> movies = new List<Movie>();
+            using(HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync("https://localhost:44366/api/Movies");
+                string data = await response.Content.ReadAsStringAsync();
+                movies = JsonConvert.DeserializeObject<List<Movie>>(data);
+            }
+            return movies;
         }
         public static void GetById(int id)
         {
