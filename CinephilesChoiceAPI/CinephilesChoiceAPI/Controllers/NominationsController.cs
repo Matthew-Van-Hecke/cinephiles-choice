@@ -38,7 +38,8 @@ namespace CinephilesChoiceAPI.Controllers
         [HttpPost]
         public void Post([FromBody] Nomination nomination)
         {
-            //Nomination nominationToAdd = JsonConvert.DeserializeObject<Nomination>(nominationJson);
+            Movie movie = _repo.Movie.GetMovieByIdWithTracking(nomination.MovieId);
+            nomination.Movie = movie;
             _repo.Nomination.Create(nomination);
             _repo.Save();
         }

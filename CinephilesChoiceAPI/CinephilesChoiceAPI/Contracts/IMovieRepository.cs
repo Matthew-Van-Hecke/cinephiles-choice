@@ -11,6 +11,7 @@ namespace CinephilesChoiceAPI.Contracts
     {
         IQueryable<Movie> GetMovies();
         Movie GetMovieById(int id);
+        Movie GetMovieByIdWithTracking(int id);
         IQueryable<Movie> GetMoviesByTitle(string title);
         void CreateMovieFromJObject(string jsonMovie);
     }

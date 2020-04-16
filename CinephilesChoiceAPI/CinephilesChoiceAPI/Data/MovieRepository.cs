@@ -31,7 +31,10 @@ namespace CinephilesChoiceAPI.Data
         {
             return FindByCondition(m => m.Id == id).FirstOrDefault();
         }
-
+        public Movie GetMovieByIdWithTracking(int id)
+        {
+            return FindByConditionWithTracking(m => m.Id == id).FirstOrDefault();
+        }
         public IQueryable<Movie> GetMoviesByTitle(string title)
         {
             return FindByCondition(m => m.Title == title);

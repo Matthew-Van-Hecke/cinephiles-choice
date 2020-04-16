@@ -36,5 +36,10 @@ namespace CinephilesChoiceAPI
         {
             ApplicationDbContext.Set<T>().Remove(entity);
         }
+
+        public IQueryable<T> FindByConditionWithTracking(Expression<Func<T, bool>> expression)
+        {
+            return ApplicationDbContext.Set<T>().Where(expression);
+        }
     }
 }
