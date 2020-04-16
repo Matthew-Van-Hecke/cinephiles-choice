@@ -5,31 +5,43 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CinephilesChoiceAPI.Services
 {
     public static class OMDbAPI
     {
-        public static async Task<JObject> GetMovie(string movieTitle, int year = 0, int attemptNumber = 0)
+        public static Semaphore semaphore;
+        //static OMDbAPI()
+        //{
+        //    int initCount = 1;
+        //    int maxCount = 5;
+        //    semaphore = new Semaphore(initCount, maxCount);
+        //}
+        public static JObject GetMovie(string movieTitle, int year = 0, int attemptNumber = 0)
         {
+            //semaphore.WaitOne();
             string movieQuery = BuildURLStringFromMovieInfo(movieTitle, year);
             JObject movie;
             HttpClient client = new HttpClient();
 
-            var response = await client.GetAsync(@"http://www.omdbapi.com/?apikey=" + movieQuery);
-            var data = await response.Content.ReadAsStringAsync();
+            var response = client.GetAsync(@"http://www.omdbapi.com/?apikey=" + movieQuery).GetAwaiter().GetResult();
+            var data = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             movie = JsonConvert.DeserializeObject<JObject>(data);
             if (movie["Response"].ToString() == "False" && year != 0 && attemptNumber < 2)
             {
                 switch (attemptNumber)
                 {
                     case 0:
-                        return await GetMovie(movieTitle, (year + 1), (attemptNumber + 1));
+                        //semaphore.Release();
+                        return GetMovie(movieTitle, (year + 1), (attemptNumber + 1));
                     case 1:
-                        return await GetMovie(movieTitle, (year - 2), (attemptNumber + 1));
+                        //semaphore.Release();
+                        return GetMovie(movieTitle, (year - 2), (attemptNumber + 1));
                 }
             }
+            //semaphore.Release();
             //client.Dispose();
             return movie;
         }

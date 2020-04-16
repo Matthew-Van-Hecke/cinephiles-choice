@@ -37,9 +37,12 @@ namespace CinephilesChoiceAPI.Controllers
         [HttpPost]
         public void Post([FromBody] Movie movie)
         {
-            //Movie movie = JsonConvert.DeserializeObject<Movie>(JsonMovie);
-            _repo.Movie.Create(movie);
-            _repo.Save();
+            Movie movieFromDb = _repo.Movie.FindByCondition(m => m.Title == movie.Title && m.Year == movie.Year).FirstOrDefault();
+            if (movieFromDb == null)
+            {
+                _repo.Movie.Create(movie);
+                _repo.Save();
+            }
         }
 
         // PUT: api/Movie/5
