@@ -53,9 +53,12 @@ namespace CinephilesChoice.Services
                 HttpResponseMessage response = await client.PutAsync("https://localhost:44366/api/Movies/" + movie.Id , movieHttp);
             }
         }
-        public static void Delete(Movie movie)
+        public static async void Delete(Movie movie)
         {
-
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage responseMessage = await client.DeleteAsync("https://localhost:44366/api/Movies/" + movie.Id);
+            }
         }
     }
 }
