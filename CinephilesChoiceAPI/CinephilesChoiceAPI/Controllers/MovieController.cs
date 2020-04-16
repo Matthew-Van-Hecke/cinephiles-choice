@@ -3,42 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CinephilesChoiceAPI.Contracts;
-using CinephilesChoiceAPI.Data;
+using CinephilesChoiceAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace CinephilesChoiceAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HomeController : ControllerBase
+    public class MovieController : ControllerBase
     {
         IRepositoryWrapper _repo;
-        public HomeController(IRepositoryWrapper repo)
+        public MovieController(IRepositoryWrapper repo)
         {
             _repo = repo;
         }
-        // GET: api/Home
+        // GET: api/Movie
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET: api/Home/5
-        [HttpGet("{id}", Name = "Get")]
+        // GET: api/Movie/5
+        [HttpGet("{id}", Name = "GetMovie")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST: api/Home
+        // POST: api/Movie
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Movie movie)
         {
+            //Movie movie = JsonConvert.DeserializeObject<Movie>(JsonMovie);
+            _repo.Movie.Create(movie);
+            _repo.Save();
         }
 
-        // PUT: api/Home/5
+        // PUT: api/Movie/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
