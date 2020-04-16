@@ -55,6 +55,9 @@ namespace CinephilesChoiceAPI.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            Nomination nomination = _repo.Nomination.GetNominationById(id);
+            _repo.Nomination.Delete(nomination);
+            _repo.Save();
         }
     }
 }
