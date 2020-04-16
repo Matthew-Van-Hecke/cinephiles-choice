@@ -24,14 +24,14 @@ namespace CinephilesChoiceAPI.Controllers
         public IEnumerable<Movie> Get()
         {
 
-            return _repo.Movie.FindAll();
+            return _repo.Movie.GetMovies();
         }
 
         // GET: api/Movie/5
         [HttpGet("{id}", Name = "GetMovie")]
         public Movie Get(int id)
         {
-            return _repo
+            return _repo.Movie.GetMovieById(id);
         }
 
         // POST: api/Movie
