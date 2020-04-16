@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CinephilesChoiceAPI.Contracts;
+using CinephilesChoiceAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +13,16 @@ namespace CinephilesChoiceAPI.Controllers
     [ApiController]
     public class NominationsController : ControllerBase
     {
+        IRepositoryWrapper _repo;
+        public NominationsController(IRepositoryWrapper repo)
+        {
+            _repo = repo;
+        }
         // GET: api/Nominations
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Nomination> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _repo.Nomination.GetNominations();
         }
 
         // GET: api/Nominations/5
