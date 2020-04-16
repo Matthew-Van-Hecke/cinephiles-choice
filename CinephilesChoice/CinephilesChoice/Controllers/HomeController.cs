@@ -21,7 +21,9 @@ namespace CinephilesChoice.Controllers
 
         public IActionResult Index()
         {
-            MovieImporter.SendMovie("Jaws", 1975);
+            Nomination nomination = NominationAPI.GetById(4).GetAwaiter().GetResult();
+            nomination.Nominee = "Sergio Díaz, Skip Lievsay";
+            NominationAPI.Update(nomination);
             return View();
         }
 

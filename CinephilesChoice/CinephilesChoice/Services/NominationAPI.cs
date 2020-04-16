@@ -44,7 +44,12 @@ namespace CinephilesChoice.Services
         }
         public static async void Update(Nomination nomination)
         {
-
+            string nominationJson = JsonConvert.SerializeObject(nomination);
+            StringContent nominationHttp = new StringContent(nominationJson, UnicodeEncoding.UTF8, "application/json");
+            using(HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.PutAsync("https://localhost:44366/api/Nominations/" + nomination.Id, nominationHttp);
+            }
         }
         public static async void Delete(Nomination nomination)
         {
