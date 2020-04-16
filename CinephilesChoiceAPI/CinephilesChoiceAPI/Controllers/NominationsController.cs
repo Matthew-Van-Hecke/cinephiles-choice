@@ -27,9 +27,9 @@ namespace CinephilesChoiceAPI.Controllers
 
         // GET: api/Nominations/5
         [HttpGet("{id}", Name = "GetNomination")]
-        public string Get(int id)
+        public Nomination Get(int id)
         {
-            return "value";
+            return _repo.Nomination.GetNominationById(id);
         }
 
         // POST: api/Nominations
