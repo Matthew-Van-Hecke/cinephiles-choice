@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CinephilesChoice.Models;
+using CinephilesChoice.Services;
 
 namespace CinephilesChoice.Controllers
 {
@@ -20,6 +21,7 @@ namespace CinephilesChoice.Controllers
 
         public IActionResult Index()
         {
+            MovieImporter.ImportMovies();
             return View();
         }
 

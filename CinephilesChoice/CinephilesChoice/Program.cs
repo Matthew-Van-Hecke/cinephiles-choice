@@ -14,7 +14,6 @@ namespace CinephilesChoice
     {
         public static void Main(string[] args)
         {
-            new MovieImporter().ImportMovies();
             CreateHostBuilder(args).Build().Run();
         }
 
