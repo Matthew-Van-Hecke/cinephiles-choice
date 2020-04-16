@@ -21,7 +21,7 @@ namespace CinephilesChoice.Controllers
 
         public IActionResult Index()
         {
-            MovieAPI.GetAll();
+            MovieAPI.GetById(403);
             return View();
         }
 

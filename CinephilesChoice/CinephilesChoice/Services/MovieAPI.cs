@@ -23,9 +23,16 @@ namespace CinephilesChoice.Services
             }
             return movies;
         }
-        public static void GetById(int id)
+        public static async Task<Movie> GetById(int id)
         {
-
+            Movie movie;
+            using(HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync("https://localhost:44366/api/Movies/" + id);
+                string data = await response.Content.ReadAsStringAsync();
+                movie = JsonConvert.DeserializeObject<Movie>(data);
+            }
+            return movie;
         }
         public static async void Create(string jsonMovie)
         {
