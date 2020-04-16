@@ -16,11 +16,25 @@ namespace CinephilesChoiceAPI.Data
         {
             
         }
+        public IQueryable<Movie> GetMovies()
+        {
+            return FindAll();
+        }
         public void CreateMovieFromJObject(string jsonMovie)
         {
             Movie movie = JsonConvert.DeserializeObject<Movie>(jsonMovie);
             //Movie movie = new Movie();
             Create(movie);
+        }
+
+        public Movie GetMovieById(int id)
+        {
+            return FindByCondition(m => m.Id == id).FirstOrDefault();
+        }
+
+        public IQueryable<Movie> GetMoviesByTitle(string title)
+        {
+            return FindByCondition(m => m.Title == title);
         }
     }
 }

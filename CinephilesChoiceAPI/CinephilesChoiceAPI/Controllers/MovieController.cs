@@ -29,9 +29,9 @@ namespace CinephilesChoiceAPI.Controllers
 
         // GET: api/Movie/5
         [HttpGet("{id}", Name = "GetMovie")]
-        public string Get(int id)
+        public Movie Get(int id)
         {
-            return "value";
+            return _repo
         }
 
         // POST: api/Movie
