@@ -12,10 +12,10 @@ namespace CinephilesChoiceAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MovieController : ControllerBase
+    public class MoviesController : ControllerBase
     {
         IRepositoryWrapper _repo;
-        public MovieController(IRepositoryWrapper repo)
+        public MoviesController(IRepositoryWrapper repo)
         {
             _repo = repo;
         }

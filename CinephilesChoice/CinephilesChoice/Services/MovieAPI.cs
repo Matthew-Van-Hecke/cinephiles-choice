@@ -26,7 +26,7 @@ namespace CinephilesChoice.Services
             using(HttpClient client = new HttpClient())
             {
                 StringContent movieHttp = new StringContent(jsonMovie, UnicodeEncoding.UTF8, "application/json");
-                var response = await client.PostAsync("https://localhost:44366/api/Movie", movieHttp);
+                var response = await client.PostAsync("https://localhost:44366/api/Movies", movieHttp);
             }
         }
         public static void Update(Movie movie)
