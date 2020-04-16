@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using CinephilesChoice.Models;
 using Newtonsoft.Json;
@@ -34,7 +35,12 @@ namespace CinephilesChoice.Services
         }
         public static async void Create(Nomination nomination)
         {
-
+            string nominationJson = JsonConvert.SerializeObject(nomination).ToString();
+            StringContent nominationHttp = new StringContent(nominationJson, UnicodeEncoding.UTF8, "application/json");
+            using(HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.PostAsync("https://localhost:44366/api/Nominations", nominationHttp);
+            }
         }
         public static async void Update(Nomination nomination)
         {

@@ -21,7 +21,15 @@ namespace CinephilesChoice.Controllers
 
         public IActionResult Index()
         {
-            Nomination nomination = NominationAPI.GetById(2).GetAwaiter().GetResult();
+            Nomination nomination = new Nomination()
+            {
+                Nominee = "Roma",
+                MovieId = 302,
+                AwardCategory = "Sound Editing",
+                IsWinner = false,
+                Year = "2018"
+            };
+            NominationAPI.Create(nomination);
             return View();
         }
 
