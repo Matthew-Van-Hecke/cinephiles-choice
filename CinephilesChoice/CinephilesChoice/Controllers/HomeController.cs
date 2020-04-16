@@ -21,7 +21,7 @@ namespace CinephilesChoice.Controllers
 
         public IActionResult Index()
         {
-            List<Nomination> nominations = NominationAPI.GetAll().GetAwaiter().GetResult();
+            Nomination nomination = NominationAPI.GetById(2).GetAwaiter().GetResult();
             return View();
         }
 

@@ -21,9 +21,16 @@ namespace CinephilesChoice.Services
             }
             return nominations;
         }
-        public static async void GetById(int id)
+        public static async Task<Nomination> GetById(int id)
         {
-
+            Nomination nomination = new Nomination();
+            using(HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync("https://localhost:44366/api/Nominations/" + id);
+                string data = await response.Content.ReadAsStringAsync();
+                nomination = JsonConvert.DeserializeObject<Nomination>(data);
+            }
+            return nomination;
         }
         public static async void Create(Nomination nomination)
         {
