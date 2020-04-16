@@ -21,9 +21,8 @@ namespace CinephilesChoice.Controllers
 
         public IActionResult Index()
         {
-            Nomination nomination = NominationAPI.GetById(4).GetAwaiter().GetResult();
-            nomination.Nominee = "Sergio Díaz, Skip Lievsay";
-            NominationAPI.Update(nomination);
+            Nomination nomination = NominationAPI.GetById(1).GetAwaiter().GetResult();
+            NominationAPI.Delete(nomination);
             return View();
         }
 

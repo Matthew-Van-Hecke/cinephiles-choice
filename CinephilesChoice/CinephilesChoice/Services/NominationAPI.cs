@@ -53,7 +53,10 @@ namespace CinephilesChoice.Services
         }
         public static async void Delete(Nomination nomination)
         {
-
+            using(HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.DeleteAsync("https://localhost:44366/api/Nominations/" + nomination.Id);
+            }
         }
     }
 }
