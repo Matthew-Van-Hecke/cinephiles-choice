@@ -44,9 +44,14 @@ namespace CinephilesChoice.Services
                 var response = await client.PostAsync("https://localhost:44366/api/Movies", movieHttp);
             }
         }
-        public static void Update(Movie movie)
+        public static async void Update(Movie movie)
         {
-
+            string jsonMovie = JsonConvert.SerializeObject(movie);
+            using(HttpClient client = new HttpClient())
+            {
+                StringContent movieHttp = new StringContent(jsonMovie, UnicodeEncoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync("https://localhost:44366/api/Movies/" + movie.Id , movieHttp);
+            }
         }
         public static void Delete(Movie movie)
         {

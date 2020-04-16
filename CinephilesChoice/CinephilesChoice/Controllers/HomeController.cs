@@ -21,7 +21,9 @@ namespace CinephilesChoice.Controllers
 
         public IActionResult Index()
         {
-            MovieAPI.GetById(403);
+            Movie movie = MovieAPI.GetById(356).GetAwaiter().GetResult();
+            movie.Director = "Rodrigo Sorogoyen";
+            MovieAPI.Update(movie);
             return View();
         }
 
