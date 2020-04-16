@@ -45,8 +45,10 @@ namespace CinephilesChoiceAPI.Controllers
 
         // PUT: api/Nominations/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Nomination nomination)
         {
+            _repo.Nomination.Update(nomination);
+            _repo.Save();
         }
 
         // DELETE: api/ApiWithActions/5
