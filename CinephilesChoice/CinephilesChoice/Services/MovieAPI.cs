@@ -34,10 +34,9 @@ namespace CinephilesChoice.Services
             }
             return movie;
         }
-        public static async void Create(string jsonMovie)
+        public static async void Create(Movie movie)
         {
-            //Movie movie = JsonConvert.DeserializeObject<Movie>(jsonMovie);
-            //string movieString = JsonConvert.SerializeObject(movie);
+            string jsonMovie = JsonConvert.SerializeObject(movie);
             using(HttpClient client = new HttpClient())
             {
                 StringContent movieHttp = new StringContent(jsonMovie, UnicodeEncoding.UTF8, "application/json");

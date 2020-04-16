@@ -33,8 +33,8 @@ namespace CinephilesChoice.Services
             {
                 movie.Year = movie.Year.Substring(0, 4);
             }
-            string jsonMovie = JsonConvert.SerializeObject(movie);
-            MovieAPI.Create(jsonMovie);
+            //string jsonMovie = JsonConvert.SerializeObject(movie);
+            MovieAPI.Create(movie);
         }
     }
 }

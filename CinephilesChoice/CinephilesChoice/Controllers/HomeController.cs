@@ -21,15 +21,7 @@ namespace CinephilesChoice.Controllers
 
         public IActionResult Index()
         {
-            Nomination nomination = new Nomination()
-            {
-                Nominee = "Roma",
-                MovieId = 302,
-                AwardCategory = "Sound Editing",
-                IsWinner = false,
-                Year = "2018"
-            };
-            NominationAPI.Create(nomination);
+            MovieImporter.SendMovie("Jaws", 1975);
             return View();
         }
 
