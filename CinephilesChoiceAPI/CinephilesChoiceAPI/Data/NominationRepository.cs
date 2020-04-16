@@ -13,5 +13,24 @@ namespace CinephilesChoiceAPI.Data
             :base(applicationDbContext)
         {
         }
+
+        public IQueryable<Nomination> GetNominations()
+        {
+            return FindAll();
+        }
+        public Nomination GetNominationById(int id)
+        {
+            return FindByCondition(n => n.Id == id).FirstOrDefault();
+        }
+
+        public IQueryable<Nomination> GetNominationsByMovieId(int movieId)
+        {
+            return FindByCondition(n => n.MovieId == movieId);
+        }
+
+        public IQueryable<Nomination> GetNominationsByYear(string year)
+        {
+            return FindByCondition(n => n.Year == year);
+        }
     }
 }

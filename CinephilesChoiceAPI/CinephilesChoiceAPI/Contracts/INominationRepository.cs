@@ -8,5 +8,9 @@ namespace CinephilesChoiceAPI.Contracts
 {
     public interface INominationRepository : IRepositoryBase<Nomination>
     {
+        IQueryable<Nomination> GetNominations();
+        Nomination GetNominationById(int id);
+        IQueryable<Nomination> GetNominationsByYear(string year);
+        IQueryable<Nomination> GetNominationsByMovieId(int movieId);
     }
 }

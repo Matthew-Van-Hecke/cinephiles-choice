@@ -17,5 +17,6 @@ namespace CinephilesChoiceAPI.Models
         public Movie Movie { get; set; }
         public string AwardCategory { get; set; }
         public bool IsWinner { get; set; }
+        public string Year { get; set; }
     }
 }
