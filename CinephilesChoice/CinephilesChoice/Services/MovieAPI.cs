@@ -34,6 +34,11 @@ namespace CinephilesChoice.Services
             }
             return movie;
         }
+        public static async Task<Movie> GetByTitle(string title)
+        {
+            List<Movie> movies = await GetAll();
+            return movies.Where(m => m.Title == title).FirstOrDefault();
+        }
         public static async void Create(Movie movie)
         {
             string jsonMovie = JsonConvert.SerializeObject(movie);

@@ -10,10 +10,19 @@ namespace CinephilesChoice.Services
     {
         public static void ImportNominations()
         {
-            List<CSVEntry> lines = CSVReader.ReadCSV("../../oscar_nominations_csv.csv");
+            List<CSVEntry> lines = CSVReader.ReadCSV("../../../oscar_nominees_csv.csv");
             foreach (CSVEntry entry in lines)
             {
-
+                Nomination nomination = new Nomination();
+                nomination.Nominee = entry.Entity;
+                if (MovieAPI.GetByTitle(entry.Film) != null)
+                {
+                    nomination.MovieId = MovieAPI.GetByTitle(entry.Film).Id;
+                }
+                nomination.AwardCategory = entry.Category;
+                nomination.IsWinner = entry.IsWinner;
+                nomination.Year = entry.Year.ToString();
+                NominationAPI.Create(nomination);
             }
         }
     }

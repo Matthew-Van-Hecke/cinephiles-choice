@@ -21,15 +21,7 @@ namespace CinephilesChoice.Controllers
 
         public IActionResult Index()
         {
-            Nomination nomination = new Nomination()
-            {
-                Nominee = "Klaus",
-                MovieId = 377,
-                AwardCategory = "Animated Feature",
-                IsWinner = false,
-                Year = "2019"
-            };
-            NominationAPI.Create(nomination);
+            NominationImporter.ImportNominations();
             return View();
         }
 
