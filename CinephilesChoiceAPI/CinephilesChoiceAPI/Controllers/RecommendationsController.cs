@@ -34,20 +34,27 @@ namespace CinephilesChoiceAPI.Controllers
 
         // POST: api/Recommendations
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Recommendation recommendation)
         {
+            _repo.Recommendation.Create(recommendation);
+            _repo.Save();
         }
 
         // PUT: api/Recommendations/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Recommendation recommendation)
         {
+            _repo.Recommendation.Update(recommendation);
+            _repo.Save();
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            Recommendation recommendationToDelete = _repo.Recommendation.GetRecommendationById(id);
+            _repo.Recommendation.Delete(recommendationToDelete);
+            _repo.Save();
         }
     }
 }
