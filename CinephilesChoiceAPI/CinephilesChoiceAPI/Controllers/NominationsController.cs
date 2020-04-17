@@ -38,7 +38,11 @@ namespace CinephilesChoiceAPI.Controllers
         [HttpPost]
         public void Post([FromBody] Nomination nomination)
         {
-            Movie movie = _repo.Movie.GetMovieByIdWithTracking(nomination.MovieId);
+            Movie movie = null;
+            if (nomination.MovieId.HasValue && nomination.MovieId != 0)
+            {
+                movie = _repo.Movie.GetMovieByIdWithTracking(nomination.MovieId.Value);
+            }
             nomination.Movie = movie;
             _repo.Nomination.Create(nomination);
             _repo.Save();

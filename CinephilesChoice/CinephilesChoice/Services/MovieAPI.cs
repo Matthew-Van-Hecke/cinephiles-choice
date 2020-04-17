@@ -23,6 +23,17 @@ namespace CinephilesChoice.Services
             }
             return movies;
         }
+        public static async Task<List<Movie>> GetAllSync()
+        {
+            List<Movie> movies = new List<Movie>();
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = client.GetAsync("https://localhost:44366/api/Movies").GetAwaiter().GetResult();
+                string data = await response.Content.ReadAsStringAsync();
+                movies = JsonConvert.DeserializeObject<List<Movie>>(data);
+            }
+            return movies;
+        }
         public static async Task<Movie> GetById(int id)
         {
             Movie movie;
@@ -37,7 +48,12 @@ namespace CinephilesChoice.Services
         public static async Task<Movie> GetByTitle(string title)
         {
             List<Movie> movies = await GetAll();
-            return movies.Where(m => m.Title == title).FirstOrDefault();
+            return movies.Where(m => m.Title.Replace(" ", "").ToLower() == title.Replace("\"", "").Replace(" ", "").ToLower()).FirstOrDefault();
+        }
+        public static Movie GetByTitleSync(string title)
+        {
+            List<Movie> movies = GetAllSync().GetAwaiter().GetResult();
+            return movies.Where(m => m.Title.Replace(" ", "").ToLower() == title.Replace("\"", "").Replace(" ", "").ToLower()).FirstOrDefault();
         }
         public static async void Create(Movie movie)
         {

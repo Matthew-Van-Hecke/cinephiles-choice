@@ -15,14 +15,14 @@ namespace CinephilesChoice.Services
             {
                 Nomination nomination = new Nomination();
                 nomination.Nominee = entry.Entity;
-                if (MovieAPI.GetByTitle(entry.Film) != null)
-                {
-                    nomination.MovieId = MovieAPI.GetByTitle(entry.Film).Id;
-                }
+                //if (MovieAPI.GetByTitleSync(entry.Film) != null)
+                //{
+                    nomination.MovieId = MovieAPI.GetByTitleSync(entry.Film).Id;
+                //}
                 nomination.AwardCategory = entry.Category;
                 nomination.IsWinner = entry.IsWinner;
                 nomination.Year = entry.Year.ToString();
-                NominationAPI.Create(nomination);
+                NominationAPI.CreateSync(nomination);
             }
         }
     }

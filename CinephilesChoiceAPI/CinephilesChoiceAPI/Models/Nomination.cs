@@ -13,7 +13,7 @@ namespace CinephilesChoiceAPI.Models
         public int Id { get; set; }
         public string Nominee { get; set; }
         [ForeignKey("Movie")]
-        public int MovieId { get; set; }
+        public int? MovieId { get; set; }
         public Movie Movie { get; set; }
         public string AwardCategory { get; set; }
         public bool IsWinner { get; set; }
