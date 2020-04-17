@@ -42,14 +42,19 @@ namespace CinephilesChoiceAPI.Controllers
 
         // PUT: api/Votes/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Vote vote)
         {
+            _repo.Vote.UpdateVote(vote);
+            _repo.Save();
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            Vote vote = _repo.Vote.GetVoteById(id);
+            _repo.Vote.Delete(vote);
+            _repo.Save();
         }
     }
 }

@@ -28,5 +28,10 @@ namespace CinephilesChoiceAPI.Data
             vote.Date = DateTime.Now;
             Create(vote);
         }
+        public void UpdateVote(Vote vote)
+        {
+            vote.Date = DateTime.Now;
+            Update(vote);
+        }
     }
 }

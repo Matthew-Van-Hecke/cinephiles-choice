@@ -11,5 +11,6 @@ namespace CinephilesChoiceAPI.Contracts
         IQueryable<Vote> GetAllVotes();
         Vote GetVoteById(int id);
         void CreateVote(Vote vote);
+        void UpdateVote(Vote vote);
     }
 }
