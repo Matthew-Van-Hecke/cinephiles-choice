@@ -34,20 +34,27 @@ namespace CinephilesChoiceAPI.Controllers
 
         // POST: api/Moviegoers
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Moviegoer moviegoer)
         {
+            _repo.Moviegoer.Create(moviegoer);
+            _repo.Save();
         }
 
         // PUT: api/Moviegoers/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Moviegoer moviegoer)
         {
+            _repo.Moviegoer.Update(moviegoer);
+            _repo.Save();
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            Moviegoer moviegoerToDelete = _repo.Moviegoer.GetMoviegoerById(id);
+            _repo.Moviegoer.Delete(moviegoerToDelete);
+            _repo.Save();
         }
     }
 }

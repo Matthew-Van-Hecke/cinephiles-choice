@@ -18,7 +18,10 @@ namespace CinephilesChoiceAPI.Data
         {
             return FindAll();
         }
-
+        public Moviegoer GetMoviegoerById(int id)
+        {
+            return FindByCondition(m => m.Id == id).FirstOrDefault();
+        }
         public Moviegoer GetMoviegoerByIdentityUserId(string identityUserId)
         {
             return FindByCondition(m => m.IdentityUserId == identityUserId).FirstOrDefault();
