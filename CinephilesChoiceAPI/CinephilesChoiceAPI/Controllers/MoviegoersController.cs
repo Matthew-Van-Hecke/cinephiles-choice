@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CinephilesChoiceAPI.Contracts;
+using CinephilesChoiceAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,18 +13,23 @@ namespace CinephilesChoiceAPI.Controllers
     [ApiController]
     public class MoviegoersController : ControllerBase
     {
+        IRepositoryWrapper _repo;
+        public MoviegoersController(IRepositoryWrapper repo)
+        {
+            _repo = repo;
+        }
         // GET: api/Moviegoers
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Moviegoer> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _repo.Moviegoer.GetAllMoviegoers();
         }
 
         // GET: api/Moviegoers/5
         [HttpGet("{id}", Name = "GetMoviegoer")]
-        public string Get(int id)
+        public Moviegoer Get(string id)
         {
-            return "value";
+            return _repo.Moviegoer.GetMoviegoerByIdentityUserId(id);
         }
 
         // POST: api/Moviegoers
