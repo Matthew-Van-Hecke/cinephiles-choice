@@ -1,9 +1,9 @@
 ﻿function displayAwardCategories(idOfYearToDisplay) {
     let element = document.getElementById(idOfYearToDisplay);
-    if (element.display != "block") {
-        element.display = "block";
+    if (element.style.display != "block") {
+        element.style.display = "block";
     }
     else {
-        element.display = "none";
+        element.style.display = "none";
     }
 }
