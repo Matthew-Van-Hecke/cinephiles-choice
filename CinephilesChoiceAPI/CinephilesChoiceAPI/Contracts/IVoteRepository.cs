@@ -8,5 +8,8 @@ namespace CinephilesChoiceAPI.Contracts
 {
     public interface IVoteRepository : IRepositoryBase<Vote>
     {
+        IQueryable<Vote> GetAllVotes();
+        Vote GetVoteById(int id);
+        void CreateVote(Vote vote);
     }
 }

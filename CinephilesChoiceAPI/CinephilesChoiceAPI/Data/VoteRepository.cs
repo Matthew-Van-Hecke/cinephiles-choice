@@ -13,5 +13,20 @@ namespace CinephilesChoiceAPI.Data
             :base(applicationDbContext)
         {
         }
+
+        public IQueryable<Vote> GetAllVotes()
+        {
+            return FindAll();
+        }
+
+        public Vote GetVoteById(int id)
+        {
+            return FindByCondition(v => v.Id == id).FirstOrDefault();
+        }
+        public void CreateVote(Vote vote)
+        {
+            vote.Date = DateTime.Now;
+            Create(vote);
+        }
     }
 }
