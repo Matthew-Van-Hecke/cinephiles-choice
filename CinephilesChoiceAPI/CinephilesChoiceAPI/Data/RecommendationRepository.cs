@@ -14,5 +14,15 @@ namespace CinephilesChoiceAPI.Data
         {
 
         }
+
+        public IQueryable<Recommendation> GetAllRecommendations()
+        {
+            return FindAll();
+        }
+
+        public Recommendation GetRecommendationById(int id)
+        {
+            return FindByCondition(r => r.Id == id).FirstOrDefault();
+        }
     }
 }

@@ -8,5 +8,7 @@ namespace CinephilesChoiceAPI.Contracts
 {
     public interface IRecommendationRepository : IRepositoryBase<Recommendation>
     {
+        IQueryable<Recommendation> GetAllRecommendations();
+        Recommendation GetRecommendationById(int id);
     }
 }
