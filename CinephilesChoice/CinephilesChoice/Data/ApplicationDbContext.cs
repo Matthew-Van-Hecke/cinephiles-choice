@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using CinephilesChoice.Models;
 
 namespace CinephilesChoice.Data
 {
@@ -34,5 +35,6 @@ namespace CinephilesChoice.Data
                 }
             );
         }
+        public DbSet<CinephilesChoice.Models.Nomination> Nomination { get; set; }
     }
 }

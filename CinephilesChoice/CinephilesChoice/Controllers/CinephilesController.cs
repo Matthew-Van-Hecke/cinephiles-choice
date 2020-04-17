@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CinephilesChoice.Models;
+using CinephilesChoice.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +15,12 @@ namespace CinephilesChoice.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+        public async Task<ActionResult> NavigateToAwards()
+        {
+            List<Nomination> nominations = await NominationAPI.GetAll();
+            List<IGrouping<string, Nomination>> groupedNominations = nominations.GroupBy(n => n.Year).ToList();
+            return View(groupedNominations);
         }
 
         // GET: Cinephile/Details/5
