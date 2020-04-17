@@ -8,5 +8,7 @@ namespace CinephilesChoiceAPI.Contracts
 {
     public interface IMoviegoerRepository : IRepositoryBase<Moviegoer>
     {
+        IQueryable<Moviegoer> GetAllMoviegoers();
+        Moviegoer GetMoviegoerByIdentityUserId(string identityUserId);
     }
 }

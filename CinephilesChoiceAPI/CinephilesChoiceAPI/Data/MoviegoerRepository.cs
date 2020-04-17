@@ -13,5 +13,15 @@ namespace CinephilesChoiceAPI.Data
             :base(applicationDbContext)
         {
         }
+
+        public IQueryable<Moviegoer> GetAllMoviegoers()
+        {
+            return FindAll();
+        }
+
+        public Moviegoer GetMoviegoerByIdentityUserId(string identityUserId)
+        {
+            return FindByCondition(m => m.IdentityUserId == identityUserId).FirstOrDefault();
+        }
     }
 }
