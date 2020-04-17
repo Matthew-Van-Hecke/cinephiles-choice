@@ -14,5 +14,6 @@ namespace CinephilesChoiceAPI.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string AnswerToSecurityQuestion { get; set; }
+        public string IdentityUserId { get; set; }
     }
 }
