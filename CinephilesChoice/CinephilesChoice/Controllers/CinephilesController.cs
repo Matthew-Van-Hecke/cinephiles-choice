@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using CinephilesChoice.Models;
 using CinephilesChoice.Services;
@@ -12,9 +13,11 @@ namespace CinephilesChoice.Controllers
     public class CinephilesController : Controller
     {
         // GET: Cinephile
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Moviegoer moviegoer = await MoviegoerAPI.GetByUserId(userId);
+            return View(moviegoer);
         }
         public async Task<ActionResult> NavigateToAwards()
         {
@@ -30,20 +33,23 @@ namespace CinephilesChoice.Controllers
         }
 
         // GET: Cinephile/Create
-        public ActionResult Create()
+        public ActionResult CreateMoviegoer()
         {
-            return View();
+            Moviegoer moviegoer = new Moviegoer()
+            {
+                IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier)
+            };
+            return View(moviegoer);
         }
 
         // POST: Cinephile/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult CreateMoviegoer(Moviegoer moviegoer)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                MoviegoerAPI.Create(moviegoer);
                 return RedirectToAction(nameof(Index));
             }
             catch
