@@ -33,6 +33,13 @@ namespace CinephilesChoice.Controllers
         }
         public async Task<ActionResult> DisplayNominations(string year, string category)
         {
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Moviegoer moviegoer = await MoviegoerAPI.GetByUserId(userId);
+            bool hasVoted = await VoteAPI.GetByIdentityUserIdYearOfNominationAndCategory(userId, year, category) != null;
+            if (User.Identity.IsAuthenticated && !hasVoted)
+            {
+                return RedirectToAction(nameof(VoteOnNomination), new YearCategoryModel(year, category));
+            }
             List<Nomination> nominations = await NominationAPI.GetNominationsByYearAndCategoryIncludeMovie(year, category);
             return View(nominations);
         }
