@@ -32,15 +32,14 @@ namespace CinephilesChoice.Controllers
         }
         public async Task<ActionResult> DisplayNominations(string year, string category)
         {
-            var nominations = await NominationAPI.GetAll();
-            List<Nomination> nominationsList = nominations.Where(n => n.Year == year && n.AwardCategory == category).ToList();
-            foreach(Nomination nomination in nominationsList)
-            {
-                nomination.Movie = await MovieAPI.GetById(nomination.MovieId);
-            }
-            return View(nominationsList);
+            List<Nomination> nominations = await NominationAPI.GetNominationsByYearAndCategoryIncludeMovie(year, category);
+            return View(nominations);
         }
-
+        public async Task<ActionResult> VoteOnNomination(string year, string category)
+        {
+            List<Nomination> nominations = await NominationAPI.GetNominationsByYearAndCategoryIncludeMovie(year, category);
+            return View();
+        }
         // GET: Cinephile/Details/5
         public ActionResult Details(int id)
         {
