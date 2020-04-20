@@ -15,7 +15,7 @@
             <ul id='awards-@i' style="display:none;">
                 @for(int j = 0; j < Model[i].ToList().Count; j++)
                 {
-                    @*<li>@Model[i].ToList()[j].AwardCategory</li>*@
+                    <li>@Model[i][j].Key</li>
                 }
             </ul>
         }
