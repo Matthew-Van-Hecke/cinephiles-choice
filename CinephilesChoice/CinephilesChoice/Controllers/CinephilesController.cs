@@ -7,6 +7,7 @@ using CinephilesChoice.Models;
 using CinephilesChoice.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace CinephilesChoice.Controllers
 {
@@ -46,6 +47,23 @@ namespace CinephilesChoice.Controllers
             }
             voteViewModel.Nominations = await NominationAPI.GetNominationsByYearAndCategoryIncludeMovie(year, category);
             return View(voteViewModel);
+        }
+        [HttpPost]
+        public async Task<ActionResult> VoteOnNomination(VoteViewModel voteViewModel)
+        {
+            //voteViewModel.Vote.Nomination = await NominationAPI.GetById(voteViewModel.Vote.NominationId);
+            if(voteViewModel.Vote.Id != 0)
+            {
+                VoteAPI.Update(voteViewModel.Vote);
+            }
+            else if(voteViewModel.Vote.Id == 0)
+            {
+                VoteAPI.Create(voteViewModel.Vote);
+            };
+            JObject returnParameters = new JObject();
+            returnParameters.Add("year", voteViewModel.Nominations.First().Year);
+            returnParameters.Add("category", voteViewModel.Nominations.First().AwardCategory);
+            return RedirectToAction(nameof(DisplayNominations), returnParameters);
         }
         // GET: Cinephile/Details/5
         public ActionResult Details(int id)
