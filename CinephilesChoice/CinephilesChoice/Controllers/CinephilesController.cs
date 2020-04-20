@@ -37,7 +37,9 @@ namespace CinephilesChoice.Controllers
         }
         public async Task<ActionResult> VoteOnNomination(string year, string category)
         {
-            List<Nomination> nominations = await NominationAPI.GetNominationsByYearAndCategoryIncludeMovie(year, category);
+            //VoteViewModel voteViewModel = new VoteViewModel();
+            //voteViewModel.Nominations = await NominationAPI.GetNominationsByYearAndCategoryIncludeMovie(year, category);
+            //voteViewModel.Vote = 
             return View();
         }
         // GET: Cinephile/Details/5

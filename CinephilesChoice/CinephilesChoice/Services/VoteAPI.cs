@@ -33,6 +33,15 @@ namespace CinephilesChoice.Services
             }
             return vote;
         }
+        public static async Task<Vote> GetByIdentityUserIdYearOfVoteYearOfNominationAndCategory(string identityUserId, string yearOfVote, string yearOfNomination, string category)
+        {
+            List<Vote> votes = await GetAll();
+            Moviegoer moviegoer = await MoviegoerAPI.GetByUserId(identityUserId);
+            votes = votes.Where(v => v.MoviegoerId == moviegoer.Id).ToList();
+            List<Nomination> nominations = await NominationAPI.GetNominationsByYearAndCategoryIncludeMovie(yearOfNomination, category);
+            Vote vote = votes.Where(v => v.MoviegoerId == moviegoer.Id && nominations.Select(n => n.Id).Contains(v.NominationId) && v.Date.Year == DateTime.Now.Year).FirstOrDefault();
+            return vote;
+        }
         public static async void Create(Vote vote)
         {
             string voteJson = JsonConvert.SerializeObject(vote).ToString();
