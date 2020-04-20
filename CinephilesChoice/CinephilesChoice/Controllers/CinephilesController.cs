@@ -30,6 +30,11 @@ namespace CinephilesChoice.Controllers
             List<List<IGrouping<string, Nomination>>> groupedNominations = nominationsGroupedByYear.Select(g => g.GroupBy(n => n.AwardCategory).ToList()).ToList();
             return View(groupedNominations);
         }
+        public ActionResult DisplayNomination(string year, string category)
+        {
+            //return View(nomination);
+            return View();
+        }
 
         // GET: Cinephile/Details/5
         public ActionResult Details(int id)
