@@ -27,9 +27,8 @@ namespace CinephilesChoice.Controllers
                 nomination.Movie = await MovieAPI.GetById(nomination.MovieId);
             }
             List<IGrouping<string, Nomination>> nominationsGroupedByYear = nominations.GroupBy(n => n.Year).ToList();
-            List<IEnumerable<IGrouping<string, Nomination>>> groupedNominations = nominationsGroupedByYear.Select(g => g.GroupBy(n => n.AwardCategory)).ToList();
-            //return View(groupedNominations);
-            return View();
+            List<List<IGrouping<string, Nomination>>> groupedNominations = nominationsGroupedByYear.Select(g => g.GroupBy(n => n.AwardCategory).ToList()).ToList();
+            return View(groupedNominations);
         }
 
         // GET: Cinephile/Details/5

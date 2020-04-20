@@ -1,4 +1,4 @@
-﻿@model List<IGrouping<string, IGrouping<string, CinephilesChoice.Models.Nomination>>>
+﻿@model List<List<IGrouping<string, CinephilesChoice.Models.Nomination>>>
 
 @{
     ViewData["Title"] = "Navigate To Awards";
@@ -11,7 +11,7 @@
     <ul>
         @for(int i = 0; i < Model.Count; i++)
         {
-            <button id='year-@i' onclick="displayAwardCategories('awards-@i')">@Model[i].Key</button>
+            <button id='year-@i' onclick="displayAwardCategories('awards-@i')">@Model[i][0].First().Year</button>
             <ul id='awards-@i' style="display:none;">
                 @for(int j = 0; j < Model[i].ToList().Count; j++)
                 {
