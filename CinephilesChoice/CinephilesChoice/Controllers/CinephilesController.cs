@@ -51,7 +51,6 @@ namespace CinephilesChoice.Controllers
         [HttpPost]
         public async Task<ActionResult> VoteOnNomination(VoteViewModel voteViewModel)
         {
-            //voteViewModel.Vote.Nomination = await NominationAPI.GetById(voteViewModel.Vote.NominationId);
             if(voteViewModel.Vote.Id != 0)
             {
                 VoteAPI.Update(voteViewModel.Vote);
@@ -60,9 +59,8 @@ namespace CinephilesChoice.Controllers
             {
                 VoteAPI.Create(voteViewModel.Vote);
             };
-            JObject returnParameters = new JObject();
-            returnParameters.Add("year", voteViewModel.Nominations.First().Year);
-            returnParameters.Add("category", voteViewModel.Nominations.First().AwardCategory);
+            Nomination nomination = await NominationAPI.GetById(voteViewModel.Vote.NominationId);
+            YearCategoryModel returnParameters = new YearCategoryModel(nomination.Year, nomination.AwardCategory);
             return RedirectToAction(nameof(DisplayNominations), returnParameters);
         }
         // GET: Cinephile/Details/5
