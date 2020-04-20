@@ -7,4 +7,11 @@
 
     <h1>@Model.First().Year - @Model.First().AwardCategory</h1>
 
-
+<div class="row">
+    @foreach(Nomination nomination in Model)
+    {
+        <div class="col-lg-4">
+            <img src="@nomination.Movie.Poster" alt="@nomination.Movie.Title" />
+        </div>
+    }
+</div>
