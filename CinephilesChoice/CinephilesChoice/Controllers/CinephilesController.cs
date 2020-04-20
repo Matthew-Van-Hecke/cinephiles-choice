@@ -30,10 +30,15 @@ namespace CinephilesChoice.Controllers
             List<List<IGrouping<string, Nomination>>> groupedNominations = nominationsGroupedByYear.Select(g => g.GroupBy(n => n.AwardCategory).ToList()).ToList();
             return View(groupedNominations);
         }
-        public ActionResult DisplayNomination(string year, string category)
+        public async Task<ActionResult> DisplayNominations(string year, string category)
         {
-            //return View(nomination);
-            return View();
+            var nominations = await NominationAPI.GetAll();
+            List<Nomination> nominationsList = nominations.Where(n => n.Year == year && n.AwardCategory == category).ToList();
+            foreach(Nomination nomination in nominationsList)
+            {
+                nomination.Movie = await MovieAPI.GetById(nomination.MovieId);
+            }
+            return View(nominationsList);
         }
 
         // GET: Cinephile/Details/5

@@ -14,7 +14,7 @@
         <ul id='awards-@i' style="display:none;">
             @for(int j = 0; j < Model[i].ToList().Count; j++)
             {
-                <a asp-action="DisplayNomination" asp-route-year="@Model[i][j].First().Year" asp-route-category="@Model[i][j].First().AwardCategory">@Model[i][j].Key</a>
+                <a asp-action="DisplayNominations" asp-route-year="@Model[i][j].First().Year" asp-route-category="@Model[i][j].First().AwardCategory">@Model[i][j].Key</a>
             }
         </ul>
     }
