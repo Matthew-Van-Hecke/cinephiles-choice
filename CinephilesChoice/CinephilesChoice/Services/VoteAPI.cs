@@ -33,7 +33,7 @@ namespace CinephilesChoice.Services
             }
             return vote;
         }
-        public static async Task<Vote> GetByIdentityUserIdYearOfVoteYearOfNominationAndCategory(string identityUserId, string yearOfNomination, string category)
+        public static async Task<Vote> GetByIdentityUserIdYearOfNominationAndCategory(string identityUserId, string yearOfNomination, string category)
         {
             List<Vote> votes = await GetAll();
             Moviegoer moviegoer = await MoviegoerAPI.GetByUserId(identityUserId);

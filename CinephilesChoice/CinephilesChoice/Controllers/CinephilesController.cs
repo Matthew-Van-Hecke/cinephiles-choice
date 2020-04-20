@@ -37,10 +37,11 @@ namespace CinephilesChoice.Controllers
         }
         public async Task<ActionResult> VoteOnNomination(string year, string category)
         {
-            //VoteViewModel voteViewModel = new VoteViewModel();
-            //voteViewModel.Nominations = await NominationAPI.GetNominationsByYearAndCategoryIncludeMovie(year, category);
-            //voteViewModel.Vote = 
-            return View();
+            VoteViewModel voteViewModel = new VoteViewModel();
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            voteViewModel.Vote = await VoteAPI.GetByIdentityUserIdYearOfNominationAndCategory(userId, year, category);
+            voteViewModel.Nominations = await NominationAPI.GetNominationsByYearAndCategoryIncludeMovie(year, category);
+            return View(voteViewModel);
         }
         // GET: Cinephile/Details/5
         public ActionResult Details(int id)

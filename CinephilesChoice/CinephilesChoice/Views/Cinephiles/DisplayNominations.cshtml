@@ -6,6 +6,7 @@
 }
 
     <h1>@Model.First().Year - @Model.First().AwardCategory</h1>
+    <a asp-action="VoteOnNomination" asp-route-year="@Model.First().Year" asp-route-category="@Model.First().AwardCategory">Vote</a>
 
 <div class="row">
     @foreach(Nomination nomination in Model)
