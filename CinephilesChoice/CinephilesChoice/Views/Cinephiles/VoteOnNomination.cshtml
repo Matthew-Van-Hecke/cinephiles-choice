@@ -1,0 +1,30 @@
+﻿@model CinephilesChoice.Models.VoteViewModel
+
+@{
+    ViewData["Title"] = "VoteOnNomination";
+    Layout = "~/Views/Shared/_Layout_Cinephile.cshtml";
+}
+
+<h1>VoteOnNomination</h1>
+
+<h4>Vote</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="VoteOnNomination">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="Vote.Id" />
+            <input type="hidden" asp-for="Vote.MoviegoerId"  />
+            <input type="hidden" asp-for="Vote.Moviegoer" />
+            <select asp-for="Vote.NominationId" asp-items='new SelectList(Model.Nominations, "Id", "Nominee")'></select>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -37,5 +37,6 @@ namespace CinephilesChoice.Data
         }
         public DbSet<CinephilesChoice.Models.Nomination> Nomination { get; set; }
         public DbSet<CinephilesChoice.Models.Moviegoer> Moviegoer { get; set; }
+        public DbSet<CinephilesChoice.Models.Vote> Vote { get; set; }
     }
 }

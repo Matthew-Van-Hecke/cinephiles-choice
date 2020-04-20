@@ -40,6 +40,10 @@ namespace CinephilesChoice.Controllers
             VoteViewModel voteViewModel = new VoteViewModel();
             string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             voteViewModel.Vote = await VoteAPI.GetByIdentityUserIdYearOfNominationAndCategory(userId, year, category);
+            if (voteViewModel.Vote == null)
+            {
+                voteViewModel.Vote = await CreateNewVote(userId);
+            }
             voteViewModel.Nominations = await NominationAPI.GetNominationsByYearAndCategoryIncludeMovie(year, category);
             return View(voteViewModel);
         }
@@ -119,6 +123,16 @@ namespace CinephilesChoice.Controllers
             {
                 return View();
             }
+        }
+        private async Task<Vote> CreateNewVote(string userId)
+        {
+            Moviegoer moviegoer = await MoviegoerAPI.GetByUserId(userId);
+            Vote vote = new Vote()
+            {
+                MoviegoerId = moviegoer.Id,
+                Moviegoer = moviegoer
+            };
+            return vote;
         }
     }
 }
