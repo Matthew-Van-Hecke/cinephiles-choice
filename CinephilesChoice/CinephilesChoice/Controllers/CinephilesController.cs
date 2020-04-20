@@ -22,8 +22,10 @@ namespace CinephilesChoice.Controllers
         public async Task<ActionResult> NavigateToAwards()
         {
             List<Nomination> nominations = await NominationAPI.GetAll();
-            List<IGrouping<string, Nomination>> groupedNominations = nominations.GroupBy(n => n.Year).ToList();
-            return View(groupedNominations);
+            List<IGrouping<string, Nomination>> nominationsGroupedByYear = nominations.GroupBy(n => n.Year).ToList();
+            var groupedNominations = nominationsGroupedByYear.Select(g => g.GroupBy(n => n.AwardCategory)).ToList();
+            //return View(groupedNominations);
+            return View();
         }
 
         // GET: Cinephile/Details/5
