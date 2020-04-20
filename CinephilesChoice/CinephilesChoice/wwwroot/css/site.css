@@ -103,6 +103,6 @@ body {
     position: absolute;
     top: 0;
 }
-.movie-poster-overlay p{
+.movie-poster-overlay div{
     margin: 12px 12px 12px 12px;
 }

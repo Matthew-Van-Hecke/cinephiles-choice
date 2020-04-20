@@ -14,7 +14,12 @@
     <div class="col-md-4 movie-poster-container">
         <img class="movie-poster" src="@nomination.Movie.Poster" alt="@nomination.Movie.Title" />
         <div class="movie-poster-overlay">
-            <p>Lorem ipsum. Dolor sit amet...</p>
+            <div>
+                <h5>Nominee: @nomination.Nominee</h5>
+                <h6>Title: @nomination.Movie.Title</h6>
+                <h6>Directed by: @nomination.Movie.Director</h6>
+                <h6>Starring: @nomination.Movie.Actors</h6>
+            </div>
         </div>
     </div>
     }
