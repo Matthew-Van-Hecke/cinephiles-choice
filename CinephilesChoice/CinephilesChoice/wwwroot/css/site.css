@@ -76,6 +76,7 @@ body {
     position: relative;
     display: flex;
     align-items: stretch;
+    border: 5px solid rgba(0,0,0,0);
 }
 .movie-poster {
     object-position: center;
@@ -85,6 +86,7 @@ body {
     border: 8px solid #dddddd;
     z-index: 5;
     position: relative;
+    border-radius: 25px;
 }
 .movie-poster-overlay {
     height: 100%;
@@ -95,6 +97,7 @@ body {
     display: none;
     position: relative;
     top: 0;
+    border-radius: 25px;
 }
 .movie-poster-container:hover .movie-poster-overlay{
     height: 100%;
