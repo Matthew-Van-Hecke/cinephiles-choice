@@ -70,13 +70,39 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 .movie-poster-container {
-    padding: 20px;
-    width: 100%;
-    height: calc(width);
+    padding: 0;
+    width: unset;
+    height: unset;
+    position: relative;
+    display: flex;
+    align-items: stretch;
 }
 .movie-poster {
+    object-position: center;
+    object-fit: fill;
     width: 100%;
-    height: 100%;
-    margin: auto;
+    height: auto;
     border: 8px solid #dddddd;
+    z-index: 5;
+    position: relative;
+}
+.movie-poster-overlay {
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(0, 0, 0, .5);
+    display: none;
+    position: relative;
+    top: 0;
+}
+.movie-poster-container:hover .movie-poster-overlay{
+    height: 100%;
+    width: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+}
+.movie-poster-overlay p{
+    margin: 12px 12px 12px 12px;
 }
