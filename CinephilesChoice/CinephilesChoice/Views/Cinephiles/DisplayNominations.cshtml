@@ -10,8 +10,8 @@
 <div class="row">
     @foreach(Nomination nomination in Model)
     {
-        <div class="col-lg-4">
-            <img src="@nomination.Movie.Poster" alt="@nomination.Movie.Title" />
+        <div class="col-lg-4 movie-poster-container">
+            <img class="movie-poster" src="@nomination.Movie.Poster" alt="@nomination.Movie.Title" />
         </div>
     }
 </div>
