@@ -17,5 +17,9 @@ namespace CinephilesChoice.Services
             string votesAsJsonString = JsonConvert.SerializeObject(votesAsStringList);
             return votesAsJsonString;
         }
+        public static string CreateJsonStringFromStringList(List<string> stringList)
+        {
+            return JsonConvert.SerializeObject(stringList);
+        }
     }
 }

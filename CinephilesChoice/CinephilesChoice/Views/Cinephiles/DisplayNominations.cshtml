@@ -36,4 +36,4 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
 <script src="~/js/statistics.js"></script>
-<script>displayChartData(@Html.Raw(Model.JsonVotes.Replace(@"\\\", @" \").Replace("\"{", "{").Replace("}\"", "}").Replace(@"\", @"")));</script>
+<script>displayChartData(@Html.Raw(Model.JsonVotes.Replace(@"\\\", @" \").Replace("\"{", "{").Replace("}\"", "}").Replace(@"\", @"")), @Html.Raw(Model.JsonNomineeNames.Replace("\\\"", "").Replace(@"\", "")));</script>

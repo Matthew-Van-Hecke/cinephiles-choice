@@ -8,7 +8,7 @@ function displayChartData(jsonVotes, nominees) {
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: jsonVotes.map(function (ele) { return ele["Nominee"]}),
+            labels: nominees,
             datasets: [{
                 label: '# of Votes',
                 data: [12, 19, 3, 5, 2, 3],
