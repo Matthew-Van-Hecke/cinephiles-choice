@@ -1,15 +1,15 @@
-﻿@model IEnumerable<CinephilesChoice.Models.Nomination>
+﻿@model CinephilesChoice.Models.NominationViewModel
 
 @{
-    ViewData["Title"] = @Model.First().Year + " - " + @Model.First().AwardCategory;
+    ViewData["Title"] = @Model.Nominations.First().Year + " - " + @Model.Nominations.First().AwardCategory;
     Layout = "~/Views/Shared/_Layout_Cinephile.cshtml";
 }
 
-    <h1>@Model.First().Year - @Model.First().AwardCategory</h1>
-    <a asp-action="VoteOnNomination" asp-route-year="@Model.First().Year" asp-route-category="@Model.First().AwardCategory">Vote</a>
+    <h1>@Model.Nominations.First().Year - @Model.Nominations.First().AwardCategory</h1>
+    <a asp-action="VoteOnNomination" asp-route-year="@Model.Nominations.First().Year" asp-route-category="@Model.Nominations.First().AwardCategory">Vote</a>
 
 <div class="row">
-    @foreach(Nomination nomination in Model)
+    @foreach(Nomination nomination in Model.Nominations)
     {
     <div class="col-md-4 movie-poster-container">
         <img class="movie-poster" src="@nomination.Movie.Poster" alt="@nomination.Movie.Title" />

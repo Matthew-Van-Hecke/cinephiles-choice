@@ -48,9 +48,8 @@ namespace CinephilesChoice.Controllers
             {
                 return RedirectToAction(nameof(VoteOnNomination), new YearCategoryModel(year, category));
             }
-            List<Nomination> nominations = await NominationAPI.GetNominationsByYearAndCategoryIncludeMovie(year, category);
-            //List<Vote> votes = await VoteAPI.
-            return View(nominations);
+            NominationViewModel nominationViewModel = await CreateNominationViewModel(year, category);
+            return View(nominationViewModel);
         }
         public async Task<ActionResult> VoteOnNomination(string year, string category)
         {
@@ -165,6 +164,26 @@ namespace CinephilesChoice.Controllers
                 Moviegoer = moviegoer
             };
             return vote;
+        }
+        private async Task<NominationViewModel> CreateNominationViewModel(string year, string category)
+        {
+            NominationViewModel nominationViewModel;
+            try
+            {
+                int yearInt = int.Parse(year);
+                nominationViewModel = new NominationViewModel()
+                {
+                    Nominations = await NominationAPI.GetNominationsByYearAndCategoryIncludeMovie(year, category),
+                    Votes = await VoteAPI.GetVotesByYearOfNominationAndCategory(year, category),
+                    Year = yearInt,
+                    Category = category
+                };
+            }
+            catch
+            {
+                nominationViewModel = null;
+            }
+            return nominationViewModel;
         }
     }
 }

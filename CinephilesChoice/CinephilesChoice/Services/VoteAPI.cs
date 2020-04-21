@@ -46,7 +46,8 @@ namespace CinephilesChoice.Services
         {
             List<Vote> votes = await GetAll();
             List<Nomination> nominations = await NominationAPI.GetNominationsByYearAndCategoryIncludeMovie(yearOfNomination, category);
-            votes = votes.Where(v => nominations.Select(n => n.Id).Contains(v.NominationId)).ToList();
+            List<int> nominationIds = nominations.Select(n => n.Id).ToList();
+            votes = votes.Where(v => nominationIds.Contains(v.NominationId)).ToList();
             return votes;
         }
         public static async void Create(Vote vote)
