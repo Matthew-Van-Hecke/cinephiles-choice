@@ -4,6 +4,7 @@
 //    displayChartData();
 //}
 function displayChartData(jsonVotes, nominees) {
+    //let groupedVotes = groupVotesByNominee(jsonVotes);
     var ctx = document.getElementById('voting-stats').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
@@ -11,7 +12,7 @@ function displayChartData(jsonVotes, nominees) {
             labels: nominees,
             datasets: [{
                 label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                data: Object.values(groupVotesByNominee(jsonVotes, nominees)).map(function (ele) { return ele.length }),
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -42,3 +43,13 @@ function displayChartData(jsonVotes, nominees) {
         }
     });
 };
+function groupVotesByNominee(votesArray, nominees) {
+    let groupedArray = {};
+    for (let i = 0; i < nominees.length; i++) {
+        groupedArray[nominees[i]] = [];
+    }
+    for (let i = 0; i < votesArray.length; i++) {
+        groupedArray[votesArray[i]["Nominee"]].push(votesArray[i]);
+    }
+    return groupedArray;
+}
