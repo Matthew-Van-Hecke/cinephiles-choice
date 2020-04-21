@@ -7,6 +7,8 @@
 
     <h1>@Model.Nominations.First().Year - @Model.Nominations.First().AwardCategory</h1>
     <a asp-action="VoteOnNomination" asp-route-year="@Model.Nominations.First().Year" asp-route-category="@Model.Nominations.First().AwardCategory">Vote</a>
+    
+<canvas id="voting-stats" width="500" height="300"></canvas>
 
 <div class="row">
     @foreach(Nomination nomination in Model.Nominations)
