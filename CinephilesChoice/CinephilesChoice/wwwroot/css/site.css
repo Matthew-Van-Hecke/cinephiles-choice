@@ -109,3 +109,6 @@ body {
 .movie-poster-overlay div{
     margin: 12px 12px 12px 12px;
 }
+.movie-poster.oscar-winner {
+    border: 8px solid green;
+}

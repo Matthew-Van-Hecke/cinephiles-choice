@@ -12,7 +12,15 @@
     @foreach(Nomination nomination in Model.Nominations)
     {
     <div class="col-md-4 movie-poster-container">
-        <img class="movie-poster" src="@nomination.Movie.Poster" alt="@nomination.Movie.Title" />
+        @if (nomination.IsWinner)
+        {
+            <img class="movie-poster oscar-winner" src="@nomination.Movie.Poster" alt="@nomination.Movie.Title" />
+        }
+        else
+        {
+            <img class="movie-poster" src="@nomination.Movie.Poster" alt="@nomination.Movie.Title" />
+        }
+
         <div class="movie-poster-overlay">
             <div>
                 <h5>Nominee: @nomination.Nominee</h5>
