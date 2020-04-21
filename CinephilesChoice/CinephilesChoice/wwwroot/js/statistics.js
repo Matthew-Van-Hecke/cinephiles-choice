@@ -1,7 +1,8 @@
 ﻿"use strict";
-if (document.getElementById("voting-stats")) {
-    displayChartData();
-}
+//if (document.getElementById("voting-stats")) {
+//    console.log(votes);
+//    displayChartData();
+//}
 function displayChartData() {
     var ctx = document.getElementById('voting-stats').getContext('2d');
     var myChart = new Chart(ctx, {

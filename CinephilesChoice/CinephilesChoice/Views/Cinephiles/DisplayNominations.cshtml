@@ -5,32 +5,35 @@
     Layout = "~/Views/Shared/_Layout_Cinephile.cshtml";
 }
 
-    <h1>@Model.Nominations.First().Year - @Model.Nominations.First().AwardCategory</h1>
-    <a asp-action="VoteOnNomination" asp-route-year="@Model.Nominations.First().Year" asp-route-category="@Model.Nominations.First().AwardCategory">Vote</a>
-    
+<h1>@Model.Nominations.First().Year - @Model.Nominations.First().AwardCategory</h1>
+<a asp-action="VoteOnNomination" asp-route-year="@Model.Nominations.First().Year" asp-route-category="@Model.Nominations.First().AwardCategory">Vote</a>
+
 <canvas id="voting-stats" width="500" height="300"></canvas>
 
 <div class="row">
-    @foreach(Nomination nomination in Model.Nominations)
+    @foreach (Nomination nomination in Model.Nominations)
     {
-    <div class="col-md-4 movie-poster-container">
-        @if (nomination.IsWinner)
-        {
-            <img class="movie-poster oscar-winner" src="@nomination.Movie.Poster" alt="@nomination.Movie.Title" />
-        }
-        else
-        {
-            <img class="movie-poster" src="@nomination.Movie.Poster" alt="@nomination.Movie.Title" />
-        }
+        <div class="col-md-4 movie-poster-container">
+            @if (nomination.IsWinner)
+            {
+                <img class="movie-poster oscar-winner" src="@nomination.Movie.Poster" alt="@nomination.Movie.Title" />
+            }
+            else
+            {
+                <img class="movie-poster" src="@nomination.Movie.Poster" alt="@nomination.Movie.Title" />
+            }
 
-        <div class="movie-poster-overlay">
-            <div>
-                <h5>Nominee: @nomination.Nominee</h5>
-                <h6>Title: @nomination.Movie.Title</h6>
-                <h6>Directed by: @nomination.Movie.Director</h6>
-                <h6>Starring: @nomination.Movie.Actors</h6>
+            <div class="movie-poster-overlay">
+                <div>
+                    <h5>Nominee: @nomination.Nominee</h5>
+                    <h6>Title: @nomination.Movie.Title</h6>
+                    <h6>Directed by: @nomination.Movie.Director</h6>
+                    <h6>Starring: @nomination.Movie.Actors</h6>
+                </div>
             </div>
         </div>
-    </div>
     }
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+<script src="~/js/statistics.js"></script>
+<script>displayChartData();</script>

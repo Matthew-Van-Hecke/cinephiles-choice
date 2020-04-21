@@ -49,7 +49,7 @@ namespace CinephilesChoice.Controllers
                 return RedirectToAction(nameof(VoteOnNomination), new YearCategoryModel(year, category));
             }
             NominationViewModel nominationViewModel = await CreateNominationViewModel(year, category);
-            string jsonVoteCollection = JsonDataBuilder.CreateJsonVoteCollection(nominationViewModel);
+            nominationViewModel.JsonVotes = JsonDataBuilder.CreateJsonVoteCollection(nominationViewModel);
             return View(nominationViewModel);
         }
         public async Task<ActionResult> VoteOnNomination(string year, string category)
