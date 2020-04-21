@@ -42,6 +42,13 @@ namespace CinephilesChoice.Services
             Vote vote = votes.Where(v => nominations.Select(n => n.Id).Contains(v.NominationId) && v.Date.Year == DateTime.Now.Year).FirstOrDefault();
             return vote;
         }
+        public static async Task<List<Vote>> GetVotesByYearOfNominationAndCategory(string yearOfNomination, string category)
+        {
+            List<Vote> votes = await GetAll();
+            List<Nomination> nominations = await NominationAPI.GetNominationsByYearAndCategoryIncludeMovie(yearOfNomination, category);
+            votes = votes.Where(v => nominations.Select(n => n.Id).Contains(v.NominationId)).ToList();
+            return votes;
+        }
         public static async void Create(Vote vote)
         {
             string voteJson = JsonConvert.SerializeObject(vote).ToString();
