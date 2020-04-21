@@ -7,12 +7,12 @@ namespace CinephilesChoice.Models
 {
     public class NomineeDateOfVoteViewModel
     {
-        public NomineeDateOfVoteViewModel(int yearOfVote, string movieTitle)
+        public NomineeDateOfVoteViewModel(int yearOfVote, string nominee)
         {
             YearOfVote = yearOfVote;
-            MovieTitle = movieTitle;
+            Nominee = nominee;
         }
         public int YearOfVote { get; }
-        public string MovieTitle { get; }
+        public string Nominee { get; }
     }
 }

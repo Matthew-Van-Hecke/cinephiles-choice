@@ -3,12 +3,12 @@
 //    console.log(votes);
 //    displayChartData();
 //}
-function displayChartData() {
+function displayChartData(jsonVotes, nominees) {
     var ctx = document.getElementById('voting-stats').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: jsonVotes.map(function (ele) { return ele["Nominee"]}),
             datasets: [{
                 label: '# of Votes',
                 data: [12, 19, 3, 5, 2, 3],
