@@ -187,5 +187,9 @@ namespace CinephilesChoice.Controllers
             }
             return nominationViewModel;
         }
+        public ActionResult ViewTest()
+        {
+            return View();
+        }
     }
 }
