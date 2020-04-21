@@ -18,7 +18,15 @@ namespace CinephilesChoice.Controllers
         {
             string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Moviegoer moviegoer = await MoviegoerAPI.GetByUserId(userId);
+            if (moviegoer == null)
+            {
+                return RedirectToAction(nameof(CreateMoviegoer));
+            }
             return View(moviegoer);
+        }
+        public ActionResult IndexWithMoviegoerParameter(Moviegoer moviegoer)
+        {
+            return View("index", moviegoer);
         }
         public async Task<ActionResult> NavigateToAwards()
         {
@@ -94,7 +102,7 @@ namespace CinephilesChoice.Controllers
             try
             {
                 MoviegoerAPI.Create(moviegoer);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexWithMoviegoerParameter), moviegoer);
             }
             catch
             {
