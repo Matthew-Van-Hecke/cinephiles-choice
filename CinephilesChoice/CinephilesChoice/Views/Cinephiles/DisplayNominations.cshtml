@@ -53,20 +53,23 @@
         function drawChart() {
 
             // Create the data table.
-            let votes = '@Model.JsonNomineeNames';
-            console.log(votes.replace(/&quot;/g, "\"").replace(/""/g, "\""));
-            votes = JSON.parse(votes.replace(/&quot;/g, "\"").replace(/""/g, "\""));
+            let nominees = '@Model.JsonNomineeNames';
+            nominees = JSON.parse(nominees.replace(/&quot;/g, "\"").replace(/""/g, "\""));
+            let votes = '@Model.JsonVotes';
+            votes = JSON.parse(votes.replace(/&quot;/g, "\"").replace(/""/g, "\"").replace(/"{/g, "{").replace(/}"/g, "}"));
+            console.log(votes);
+            let groupedVotes = groupVotesByNominee(votes, nominees);
+            groupedVotes = Object.values(groupedVotes).map(function (ele, i) {
+                return [Object.keys(groupedVotes)[i], ele.length]
+            });
             var data = new google.visualization.DataTable();
-            //for (let i = 0; i < )
-            data.addColumn('string', 'Topping');
-            data.addColumn('number', 'Slices');
-            data.addRows([
-                ['Mushrooms', 3],
-                ['Onions', 1],
-                ['Olives', 1],
-                ['Zucchini', 1],
-                ['Pepperoni', 2]
-            ]);
+            //let rowsToAdd = [];
+            //for (let i = 0; i < groupedVotes; i++) {
+            //    rows.push([groupedVotes[i].key, )
+            //}
+            data.addColumn('string', 'Nominees');
+            data.addColumn('number', 'NumberOfVotes');
+            data.addRows(groupedVotes);
 
             // Set chart options
             var options = {
