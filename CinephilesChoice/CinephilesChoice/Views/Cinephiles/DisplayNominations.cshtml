@@ -53,7 +53,11 @@
         function drawChart() {
 
             // Create the data table.
+            let votes = '@Model.JsonNomineeNames';
+            console.log(votes.replace(/&quot;/g, "\"").replace(/""/g, "\""));
+            votes = JSON.parse(votes.replace(/&quot;/g, "\"").replace(/""/g, "\""));
             var data = new google.visualization.DataTable();
+            //for (let i = 0; i < )
             data.addColumn('string', 'Topping');
             data.addColumn('number', 'Slices');
             data.addRows([
@@ -67,13 +71,23 @@
             // Set chart options
             var options = {
                 'title': 'How Much Pizza I Ate Last Night',
-                'width': 400,
-                'height': 300
+                'width': 600,
+                'height': 400
             };
 
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.PieChart(document.getElementById('chart'));
             chart.draw(data, options);
+        }
+        function groupVotesByNominee(votesArray, nominees) {
+            let groupedArray = {};
+            for (let i = 0; i < nominees.length; i++) {
+                groupedArray[nominees[i]] = [];
+            }
+            for (let i = 0; i < votesArray.length; i++) {
+                groupedArray[votesArray[i]["Nominee"]].push(votesArray[i]);
+            }
+            return groupedArray;
         }
     </script>
 
