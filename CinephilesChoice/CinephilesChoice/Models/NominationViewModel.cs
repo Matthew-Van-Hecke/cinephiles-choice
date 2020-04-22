@@ -23,7 +23,7 @@ namespace CinephilesChoice.Models
             }
             else
             {
-                return vote.Nomination.Movie.Title;
+                return vote.Nomination.Nominee;
             }
         }
     }

@@ -41,11 +41,15 @@ namespace CinephilesChoice.Controllers
         }
         public async Task<ActionResult> DisplayNominations(string year, string category)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("DisplayNominations", "Home", new YearCategoryModel(year, category));
+            }
             string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Moviegoer moviegoer = await MoviegoerAPI.GetByUserId(userId);
             List<Vote> myVotes = await VoteAPI.GetByIdentityUserIdYearOfNominationAndCategory(userId, year, category);
             bool hasVotedThisYear = myVotes.Where(v => v.Date.Year == DateTime.Now.Year).FirstOrDefault() != null;
-            if (User.Identity.IsAuthenticated && !hasVotedThisYear)
+            if (!hasVotedThisYear)
             {
                 return RedirectToAction(nameof(VoteOnNomination), new YearCategoryModel(year, category));
             }
@@ -55,6 +59,7 @@ namespace CinephilesChoice.Controllers
             nominationViewModel.MyVotes = await VoteAPI.GetByIdentityUserIdYearOfNominationAndCategory(userId, year, category);
             return View(nominationViewModel);
         }
+        
         public async Task<ActionResult> VoteOnNomination(string year, string category)
         {
             VoteViewModel voteViewModel = new VoteViewModel();
