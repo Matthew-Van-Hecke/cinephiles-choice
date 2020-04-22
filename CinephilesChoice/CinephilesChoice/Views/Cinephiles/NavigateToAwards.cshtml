@@ -2,7 +2,14 @@
 
 @{
     ViewData["Title"] = "Navigate To Awards";
-    Layout = "~/Views/Shared/_Layout_Cinephile.cshtml";
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_Layout_Cinephile.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 }
 
 <h1>NavigateToAwards</h1>
