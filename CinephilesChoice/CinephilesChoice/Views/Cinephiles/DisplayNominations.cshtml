@@ -13,7 +13,7 @@
 <div id="chart"></div>
 @foreach(string year in Model.Votes.OrderBy(v => v.Date).GroupBy(v => v.Date.Year).Select(v => v.First().Date.Year.ToString()))
 {
-    <button>@year</button>
+    <button onclick="drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', @year)">@year</button>
 }
 <div class="row">
     @foreach (Nomination nomination in Model.Nominations)
@@ -48,11 +48,15 @@
 
         google.charts.setOnLoadCallback(function () { drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes') });
 
-        function drawChart(jsonNomineeNames, jsonVotes) {
+        function drawChart(jsonNomineeNames, jsonVotes, year = null) {
 
             // Create the data table.
             let nominees = createNomineesArray(jsonNomineeNames);
             let votes = createVotesObjectArray(jsonVotes);
+            if (year != null) {
+                votes = votes.filter(function (ele) { return ele["YearOfVote"] === year });
+            }
+            console.log(votes);
             let groupedVotes = groupVotesByNominee(votes, nominees);
             groupedVotes = Object.values(groupedVotes).map(function (ele, i) {
                 return [Object.keys(groupedVotes)[i], ele.length]
