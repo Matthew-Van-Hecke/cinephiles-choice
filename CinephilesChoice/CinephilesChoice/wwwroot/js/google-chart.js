@@ -18,8 +18,9 @@
 
     var options = {
         'title': chartName,
-        'width': 600,
-        'height': 400
+        'width': 800,
+        'height': 500,
+        is3D: true
     };
 
     // Instantiate and draw our chart, passing in some options.

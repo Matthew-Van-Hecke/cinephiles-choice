@@ -43,21 +43,24 @@ namespace CinephilesChoice.Controllers
         {
             string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Moviegoer moviegoer = await MoviegoerAPI.GetByUserId(userId);
-            bool hasVoted = await VoteAPI.GetByIdentityUserIdYearOfNominationAndCategory(userId, year, category) != null;
-            if (User.Identity.IsAuthenticated && !hasVoted)
+            List<Vote> myVotes = await VoteAPI.GetByIdentityUserIdYearOfNominationAndCategory(userId, year, category);
+            bool hasVotedThisYear = myVotes.Where(v => v.Date.Year == DateTime.Now.Year).FirstOrDefault() != null;
+            if (User.Identity.IsAuthenticated && !hasVotedThisYear)
             {
                 return RedirectToAction(nameof(VoteOnNomination), new YearCategoryModel(year, category));
             }
             NominationViewModel nominationViewModel = await CreateNominationViewModel(year, category);
             nominationViewModel.JsonVotes = JsonDataBuilder.CreateJsonVoteCollection(nominationViewModel);
             nominationViewModel.JsonNomineeNames = JsonDataBuilder.CreateJsonStringFromStringList(nominationViewModel.Nominations.Select(n => n.Nominee).ToList());
+            nominationViewModel.MyVotes = await VoteAPI.GetByIdentityUserIdYearOfNominationAndCategory(userId, year, category);
             return View(nominationViewModel);
         }
         public async Task<ActionResult> VoteOnNomination(string year, string category)
         {
             VoteViewModel voteViewModel = new VoteViewModel();
             string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            voteViewModel.Vote = await VoteAPI.GetByIdentityUserIdYearOfNominationAndCategory(userId, year, category);
+            List<Vote> myVotes = await VoteAPI.GetByIdentityUserIdYearOfNominationAndCategory(userId, year, category);
+            voteViewModel.Vote = myVotes.Where(v => v.Date.Year == DateTime.Now.Year).FirstOrDefault();
             if (voteViewModel.Vote == null)
             {
                 voteViewModel.Vote = await CreateNewVote(userId);
@@ -186,10 +189,6 @@ namespace CinephilesChoice.Controllers
                 nominationViewModel = null;
             }
             return nominationViewModel;
-        }
-        public ActionResult ViewTest()
-        {
-            return View();
         }
     }
 }

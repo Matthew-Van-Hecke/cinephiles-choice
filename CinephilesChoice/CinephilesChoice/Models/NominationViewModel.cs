@@ -13,5 +13,6 @@ namespace CinephilesChoice.Models
         public List<Vote> Votes { get; set; }
         public string JsonVotes { get; set; }
         public string JsonNomineeNames { get; set; }
+        public List<Vote> MyVotes { get; set; }
     }
 }

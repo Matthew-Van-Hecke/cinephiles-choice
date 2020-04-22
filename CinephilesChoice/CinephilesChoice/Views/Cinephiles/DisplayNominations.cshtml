@@ -9,8 +9,12 @@
 <a asp-action="VoteOnNomination" asp-route-year="@Model.Nominations.First().Year" asp-route-category="@Model.Nominations.First().AwardCategory">Vote</a>
 
 @*<canvas id="voting-stats" width="500" height="300"></canvas>*@
-
+<div>
+    <h5>Oscar Winner - @Model.Nominations.Where(n => n.IsWinner == true).First().Movie.Title</h5>
+    <h5>Your Vote - </h5>
+</div>
 <div id="chart"></div>
+<h5>Filter chart by year of voting:</h5>
 <button onclick="drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', '@Model.Year - @Model.Category')">All Time</button>
 @foreach(string year in Model.Votes.OrderBy(v => v.Date).GroupBy(v => v.Date.Year).Select(v => v.First().Date.Year.ToString()))
 {
