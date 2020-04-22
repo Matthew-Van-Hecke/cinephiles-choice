@@ -39,41 +39,31 @@
 
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="~/js/google-chart-helper-functions.js"></script>
     <script type="text/javascript">
 
-        // Load the Visualization API and the corechart package.
         google.charts.load('current', { 'packages': ['corechart'] });
 
-        // Set a callback to run when the Google Visualization API is loaded.
         google.charts.setOnLoadCallback(drawChart);
 
-        // Callback that creates and populates a data table,
-        // instantiates the pie chart, passes in the data and
-        // draws it.
         function drawChart() {
 
             // Create the data table.
-            let nominees = '@Model.JsonNomineeNames';
-            nominees = JSON.parse(nominees.replace(/&quot;/g, "\"").replace(/""/g, "\""));
-            let votes = '@Model.JsonVotes';
-            votes = JSON.parse(votes.replace(/&quot;/g, "\"").replace(/""/g, "\"").replace(/"{/g, "{").replace(/}"/g, "}"));
+            let nominees = createNomineesArray('@Model.JsonNomineeNames');
+            let votes = createVotesObjectArray('@Model.JsonVotes');
+            
             console.log(votes);
             let groupedVotes = groupVotesByNominee(votes, nominees);
             groupedVotes = Object.values(groupedVotes).map(function (ele, i) {
                 return [Object.keys(groupedVotes)[i], ele.length]
             });
             var data = new google.visualization.DataTable();
-            //let rowsToAdd = [];
-            //for (let i = 0; i < groupedVotes; i++) {
-            //    rows.push([groupedVotes[i].key, )
-            //}
             data.addColumn('string', 'Nominees');
             data.addColumn('number', 'NumberOfVotes');
             data.addRows(groupedVotes);
 
-            // Set chart options
             var options = {
-                'title': 'How Much Pizza I Ate Last Night',
+                'title': '@Model.Category - @Model.Year',
                 'width': 600,
                 'height': 400
             };
@@ -81,16 +71,6 @@
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.PieChart(document.getElementById('chart'));
             chart.draw(data, options);
-        }
-        function groupVotesByNominee(votesArray, nominees) {
-            let groupedArray = {};
-            for (let i = 0; i < nominees.length; i++) {
-                groupedArray[nominees[i]] = [];
-            }
-            for (let i = 0; i < votesArray.length; i++) {
-                groupedArray[votesArray[i]["Nominee"]].push(votesArray[i]);
-            }
-            return groupedArray;
         }
     </script>
 
