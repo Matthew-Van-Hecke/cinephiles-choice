@@ -14,5 +14,17 @@ namespace CinephilesChoice.Models
         public string JsonVotes { get; set; }
         public string JsonNomineeNames { get; set; }
         public List<Vote> MyVotes { get; set; }
+        public string GetVoteByYear(string year)
+        {
+            Vote vote = MyVotes.Where(v => v.Date.Year.ToString() == year).FirstOrDefault();
+            if (vote == null)
+            {
+                return "";
+            }
+            else
+            {
+                return vote.Nomination.Movie.Title;
+            }
+        }
     }
 }

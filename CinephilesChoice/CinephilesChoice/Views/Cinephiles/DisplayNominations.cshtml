@@ -8,17 +8,16 @@
 <h1>@Model.Nominations.First().Year - @Model.Nominations.First().AwardCategory</h1>
 <a asp-action="VoteOnNomination" asp-route-year="@Model.Nominations.First().Year" asp-route-category="@Model.Nominations.First().AwardCategory">Vote</a>
 
-@*<canvas id="voting-stats" width="500" height="300"></canvas>*@
 <div>
     <h5>Oscar Winner - @Model.Nominations.Where(n => n.IsWinner == true).First().Movie.Title</h5>
-    <h5>Your Vote - </h5>
+    <h5 id="your-vote"></h5>
 </div>
 <div id="chart"></div>
 <h5>Filter chart by year of voting:</h5>
-<button onclick="drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', '@Model.Year - @Model.Category')">All Time</button>
+<button onclick="drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', '@Model.Year - @Model.Category', '@Model.GetVoteByYear(DateTime.Now.Year.ToString())')">All Time</button>
 @foreach(string year in Model.Votes.OrderBy(v => v.Date).GroupBy(v => v.Date.Year).Select(v => v.First().Date.Year.ToString()))
 {
-    <button onclick="drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', '@Model.Year - @Model.Category - User Votes from @year ', @year)">@year</button>
+    <button onclick="drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', '@Model.Year - @Model.Category - User Votes from @year ', '@Model.GetVoteByYear(year)', @year)">@year</button>
 }
 <div class="row">
     @foreach (Nomination nomination in Model.Nominations)
@@ -51,7 +50,7 @@
 
         google.charts.load('current', { 'packages': ['corechart'] });
 
-        google.charts.setOnLoadCallback(function () { drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', '@Model.Year - @Model.Category') });
+        google.charts.setOnLoadCallback(function () { drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', '@Model.Year - @Model.Category', '@Model.MyVotes.Where(v => v.Date.Year == DateTime.Now.Year).FirstOrDefault().Nomination.Movie.Title') });
 
     </script>
 

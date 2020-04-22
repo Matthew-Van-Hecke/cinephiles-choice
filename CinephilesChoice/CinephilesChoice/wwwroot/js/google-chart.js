@@ -1,4 +1,4 @@
-﻿function drawChart(jsonNomineeNames, jsonVotes, chartName, year = null) {
+﻿function drawChart(jsonNomineeNames, jsonVotes, chartName, yourVote, year = null) {
 
     // Create the data table.
     let nominees = createNomineesArray(jsonNomineeNames);
@@ -26,6 +26,7 @@
     // Instantiate and draw our chart, passing in some options.
     var chart = new google.visualization.PieChart(document.getElementById('chart'));
     chart.draw(data, options);
+    document.getElementById("your-vote").innerText = "Your Vote - " + yourVote;
 }
 
 function createNomineesArray(nomineesJsonString) {

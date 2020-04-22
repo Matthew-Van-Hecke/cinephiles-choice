@@ -40,6 +40,10 @@ namespace CinephilesChoice.Services
             votes = votes.Where(v => v.MoviegoerId == moviegoer.Id).ToList();
             List<Nomination> nominations = await NominationAPI.GetNominationsByYearAndCategoryIncludeMovie(yearOfNomination, category);
             votes = votes.Where(v => nominations.Select(n => n.Id).Contains(v.NominationId)).ToList();
+            foreach (Vote vote in votes)
+            {
+                vote.Nomination = await NominationAPI.GetById(vote.NominationId);
+            }
             return votes;
         }
         public static async Task<List<Vote>> GetVotesByYearOfNominationAndCategory(string yearOfNomination, string category)

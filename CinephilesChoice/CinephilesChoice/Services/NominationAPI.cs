@@ -31,6 +31,7 @@ namespace CinephilesChoice.Services
                 string data = await response.Content.ReadAsStringAsync();
                 nomination = JsonConvert.DeserializeObject<Nomination>(data);
             }
+            nomination.Movie = await MovieAPI.GetById(nomination.MovieId);
             return nomination;
         }
         public static async Task<List<Nomination>> GetNominationsByYearAndCategoryIncludeMovie(string year, string category)
