@@ -1,4 +1,4 @@
-﻿@model CinephilesChoice.Models.Movie
+﻿@model CinephilesChoice.Models.RecommendationViewModel
 
 @{
     ViewData["Title"] = "MovieRecommendation";
@@ -8,13 +8,14 @@
 <h1>MovieRecommendation</h1>
 
 <div class="col-sm-6 col-md-4 col-lg-3 movie-poster-container">
-    <img class="movie-poster" src="@Model.Poster" alt="@Model.Title" />
+    <img class="movie-poster" src="@Model.Movie.Poster" alt="@Model.Movie.Title" />
     <div class="movie-poster-overlay">
         <div>
-            <h6>Title: @Model.Title</h6>
-            <h6>Directed by: @Model.Director</h6>
-            <h6>Starring: @Model.Actors</h6>
+            <h6>Title: @Model.Movie.Title</h6>
+            <h6>Directed by: @Model.Movie.Director</h6>
+            <h6>Starring: @Model.Movie.Actors</h6>
         </div>
     </div>
 </div>
 
+<a asp-action="DisplayNominations" asp-route-year="@Model.Year" asp-route-category="@Model.Category">OK</a>

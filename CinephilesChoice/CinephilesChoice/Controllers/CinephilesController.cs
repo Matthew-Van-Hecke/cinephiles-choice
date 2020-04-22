@@ -87,22 +87,35 @@ namespace CinephilesChoice.Controllers
             Nomination nomination = await NominationAPI.GetById(voteViewModel.Vote.NominationId);
             YearCategoryModel returnParameters = new YearCategoryModel(nomination.Year, nomination.AwardCategory);
             Nomination nominationVotedFor = await NominationAPI.GetById(voteViewModel.Vote.NominationId);
-            Movie movieVotedFor = await MovieAPI.GetById(nominationVotedFor.MovieId);
-            return RedirectToAction(nameof(MovieRecommendation), movieVotedFor);
+            RecommendationViewModel recommendationViewModel = new RecommendationViewModel()
+            {
+                Year = nominationVotedFor.Year,
+                Category = nominationVotedFor.AwardCategory
+            };
+            recommendationViewModel.Movie = await MovieAPI.GetById(nominationVotedFor.MovieId);
+            recommendationViewModel.MovieId = recommendationViewModel.Movie.Id;
+            return RedirectToAction(nameof(MovieRecommendation), recommendationViewModel);
         }
-        public async Task<ActionResult> MovieRecommendation(Movie movieVotedFor)
+        public async Task<ActionResult> MovieRecommendation(string year, string category, int? movieId)
         {
+            Movie movie = await MovieAPI.GetById(movieId.Value);
             List<Movie> movies = await MovieAPI.GetAll();
-            Movie movie = movies.Where(m => m.Director == movieVotedFor.Director && m.Title != movieVotedFor.Title).FirstOrDefault();
-            if(movie == null)
+            movies = movies.Where(m => m.Actors != null).ToList();
+            RecommendationViewModel recommendation = new RecommendationViewModel()
             {
-                movie = movies.Where(m => m.Actors != null && m.Actors.Contains(movieVotedFor.Actors.Split(", ").First()) && m.Id != movieVotedFor.Id).FirstOrDefault();
-            }
-            if(movie == null)
+                Year = year,
+                Category = category
+            };
+            recommendation.Movie = movies.Where(m => m.Director == movie.Director && m.Title != movie.Title).FirstOrDefault();
+            if(recommendation.Movie == null)
             {
-                movie = movies.Where(m => m.Year == movieVotedFor.Year && m.Id != movieVotedFor.Id).FirstOrDefault();
+                recommendation.Movie = movies.Where(m => m.Actors.Contains(movie.Actors.Split(", ").First()) && m.Title != movie.Title).FirstOrDefault();
             }
-            return View(movie);
+            if(recommendation.Movie == null)
+            {
+                recommendation.Movie = movies.Where(m => m.Year == movie.Year && m.Id != movie.Id).FirstOrDefault();
+            }
+            return View(recommendation);
         }
         // GET: Cinephile/Details/5
         public ActionResult Details(int id)
