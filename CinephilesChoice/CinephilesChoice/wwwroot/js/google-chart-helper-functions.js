@@ -1,9 +1,9 @@
 ﻿function createNomineesArray(nomineesJsonString) {
-    return JSON.parse(nomineesJsonString.replace(/&quot;/g, "\"").replace(/""/g, "\""));
+    return JSON.parse(nomineesJsonString.replace(/&quot;/g, "\"").replace(/""/g, "\"").replace("&#x27;", "'"));
 }
 
 function createVotesObjectArray(votesJsonString) {
-    return JSON.parse(votesJsonString.replace(/&quot;/g, "\"").replace(/""/g, "\"").replace(/"{/g, "{").replace(/}"/g, "}"));
+    return JSON.parse(votesJsonString.replace(/&quot;/g, "\"").replace(/""/g, "\"").replace(/"{/g, "{").replace(/}"/g, "}").replace("&#x27;", "'"));
 }
 
 function groupVotesByNominee(votesArray, nominees) {

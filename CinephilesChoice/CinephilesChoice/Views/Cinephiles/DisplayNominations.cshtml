@@ -37,22 +37,19 @@
     }
 </div>
 
-    <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="~/js/google-chart-helper-functions.js"></script>
     <script type="text/javascript">
 
         google.charts.load('current', { 'packages': ['corechart'] });
 
-        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(function () { drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes') });
 
-        function drawChart() {
+        function drawChart(jsonNomineeNames, jsonVotes) {
 
             // Create the data table.
-            let nominees = createNomineesArray('@Model.JsonNomineeNames');
-            let votes = createVotesObjectArray('@Model.JsonVotes');
-            
-            console.log(votes);
+            let nominees = createNomineesArray(jsonNomineeNames);
+            let votes = createVotesObjectArray(jsonVotes);
             let groupedVotes = groupVotesByNominee(votes, nominees);
             groupedVotes = Object.values(groupedVotes).map(function (ele, i) {
                 return [Object.keys(groupedVotes)[i], ele.length]
