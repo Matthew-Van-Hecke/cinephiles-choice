@@ -86,7 +86,23 @@ namespace CinephilesChoice.Controllers
             };
             Nomination nomination = await NominationAPI.GetById(voteViewModel.Vote.NominationId);
             YearCategoryModel returnParameters = new YearCategoryModel(nomination.Year, nomination.AwardCategory);
-            return RedirectToAction(nameof(DisplayNominations), returnParameters);
+            Nomination nominationVotedFor = await NominationAPI.GetById(voteViewModel.Vote.NominationId);
+            Movie movieVotedFor = await MovieAPI.GetById(nominationVotedFor.MovieId);
+            return RedirectToAction(nameof(MovieRecommendation), movieVotedFor);
+        }
+        public async Task<ActionResult> MovieRecommendation(Movie movieVotedFor)
+        {
+            List<Movie> movies = await MovieAPI.GetAll();
+            Movie movie = movies.Where(m => m.Director == movieVotedFor.Director && m.Title != movieVotedFor.Title).FirstOrDefault();
+            if(movie == null)
+            {
+                movie = movies.Where(m => m.Actors != null && m.Actors.Contains(movieVotedFor.Actors.Split(", ").First()) && m.Id != movieVotedFor.Id).FirstOrDefault();
+            }
+            if(movie == null)
+            {
+                movie = movies.Where(m => m.Year == movieVotedFor.Year && m.Id != movieVotedFor.Id).FirstOrDefault();
+            }
+            return View(movie);
         }
         // GET: Cinephile/Details/5
         public ActionResult Details(int id)
