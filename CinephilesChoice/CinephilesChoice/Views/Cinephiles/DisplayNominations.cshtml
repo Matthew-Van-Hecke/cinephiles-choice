@@ -11,9 +11,10 @@
 @*<canvas id="voting-stats" width="500" height="300"></canvas>*@
 
 <div id="chart"></div>
+<button onclick="drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', '@Model.Year - @Model.Category')">All Time</button>
 @foreach(string year in Model.Votes.OrderBy(v => v.Date).GroupBy(v => v.Date.Year).Select(v => v.First().Date.Year.ToString()))
 {
-    <button onclick="drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', @year)">@year</button>
+    <button onclick="drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', '@Model.Year - @Model.Category - User Votes from @year ', @year)">@year</button>
 }
 <div class="row">
     @foreach (Nomination nomination in Model.Nominations)
@@ -41,41 +42,13 @@
 </div>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="~/js/google-chart-helper-functions.js"></script>
+    <script src="~/js/google-chart.js"></script>
     <script type="text/javascript">
 
         google.charts.load('current', { 'packages': ['corechart'] });
 
-        google.charts.setOnLoadCallback(function () { drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes') });
+        google.charts.setOnLoadCallback(function () { drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', '@Model.Year - @Model.Category') });
 
-        function drawChart(jsonNomineeNames, jsonVotes, year = null) {
-
-            // Create the data table.
-            let nominees = createNomineesArray(jsonNomineeNames);
-            let votes = createVotesObjectArray(jsonVotes);
-            if (year != null) {
-                votes = votes.filter(function (ele) { return ele["YearOfVote"] === year });
-            }
-            console.log(votes);
-            let groupedVotes = groupVotesByNominee(votes, nominees);
-            groupedVotes = Object.values(groupedVotes).map(function (ele, i) {
-                return [Object.keys(groupedVotes)[i], ele.length]
-            });
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Nominees');
-            data.addColumn('number', 'NumberOfVotes');
-            data.addRows(groupedVotes);
-
-            var options = {
-                'title': '@Model.Category - @Model.Year',
-                'width': 600,
-                'height': 400
-            };
-
-            // Instantiate and draw our chart, passing in some options.
-            var chart = new google.visualization.PieChart(document.getElementById('chart'));
-            chart.draw(data, options);
-        }
     </script>
 
     @*<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
