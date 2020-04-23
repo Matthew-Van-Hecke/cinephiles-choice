@@ -165,29 +165,6 @@ namespace CinephilesChoice.Controllers
             MoviegoerAPI.Update(moviegoer);
             return RedirectToAction(nameof(Details));
         }
-
-        // GET: Cinephile/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Cinephile/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
         private async Task<Vote> CreateNewVote(string userId)
         {
             Moviegoer moviegoer = await MoviegoerAPI.GetByUserId(userId);
