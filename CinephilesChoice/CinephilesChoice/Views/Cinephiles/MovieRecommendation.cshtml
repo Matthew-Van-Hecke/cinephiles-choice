@@ -5,18 +5,21 @@
     Layout = "~/Views/Shared/_Layout_Cinephile.cshtml";
 }
 
-<h1>MovieRecommendation</h1>
-
-<div class="col-sm-6 col-md-4 col-lg-3 movie-poster-container">
-    <img class="movie-poster" src="@Model.Movie.Poster" alt="@Model.Movie.Title" />
-    <div class="movie-poster-overlay">
-        <div>
-            <h6>Title: @Model.Movie.Title</h6>
-            <h6>Directed by: @Model.Movie.Director</h6>
-            <h6>Genre(s): @Model.Movie.Genre</h6>
-            <h6>Starring: @Model.Movie.Actors</h6>
+<h1>Recommendation</h1>
+<p>Based on your vote, you might enjoy this movie.</p>
+<div class="justify-content-center">
+    <div class="col-sm-6 col-md-4 col-lg-3 movie-poster-container mb-4">
+        <img class="movie-poster" src="@Model.Movie.Poster" alt="@Model.Movie.Title" />
+        <div class="movie-poster-overlay">
+            <div>
+                <h6>Title: @Model.Movie.Title</h6>
+                <h6>Directed by: @Model.Movie.Director</h6>
+                <h6>Genre(s): @Model.Movie.Genre</h6>
+                <h6>Starring: @Model.Movie.Actors</h6>
+            </div>
         </div>
     </div>
+    <div class="col-12 justify-content-center">
+        <a class="btn-info p-2 rounded" asp-action="DisplayNominations" asp-route-year="@Model.Year" asp-route-category="@Model.Category">Okay</a>
+    </div>
 </div>
-
-<a asp-action="DisplayNominations" asp-route-year="@Model.Year" asp-route-category="@Model.Category">OK</a>
