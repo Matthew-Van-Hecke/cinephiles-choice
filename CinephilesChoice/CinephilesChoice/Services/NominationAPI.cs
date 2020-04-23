@@ -78,5 +78,12 @@ namespace CinephilesChoice.Services
                 HttpResponseMessage response = await client.DeleteAsync("https://localhost:44366/api/Nominations/" + nomination.Id);
             }
         }
+        public static async Task<List<KeyValuePair<string, string>>> GetAllYearCategoryCombinations()
+        {
+            List<Nomination> nominations = await GetAll();
+            nominations = nominations.OrderBy(n => int.Parse(n.Year)).ToList();
+            List<KeyValuePair<string, string>> yearCategoryCombinations = nominations.Select(n => new KeyValuePair<string, string>(n.Year, n.AwardCategory)).ToList();
+            return yearCategoryCombinations.Distinct().ToList();
+        }
     }
 }

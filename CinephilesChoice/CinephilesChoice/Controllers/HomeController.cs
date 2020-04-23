@@ -34,6 +34,7 @@ namespace CinephilesChoice.Controllers
             NominationViewModel nominationViewModel = await CreateNominationViewModel(year, category);
             nominationViewModel.JsonVotes = JsonDataBuilder.CreateJsonVoteCollection(nominationViewModel);
             nominationViewModel.JsonNomineeNames = JsonDataBuilder.CreateJsonStringFromStringList(nominationViewModel.Nominations.Select(n => n.Nominee).ToList());
+            nominationViewModel.AllYearCategoryCombinations = await NominationAPI.GetAllYearCategoryCombinations();
             return View(nominationViewModel);
         }
 
