@@ -17,6 +17,9 @@
     <h5>Filter chart by year of voting:</h5>
     <button onclick="drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', '@Model.Year - @Model.Category', '@Model.GetVoteByYear(DateTime.Now.Year.ToString())')">All Time</button>
 </div>
+@*<div>
+    <a asp-action="DisplayNominations" asp-route-year="">content</a>
+</div>*@
 
     @foreach (string year in Model.Votes.OrderBy(v => v.Date).GroupBy(v => v.Date.Year).Select(v => v.First().Date.Year.ToString()))
     {

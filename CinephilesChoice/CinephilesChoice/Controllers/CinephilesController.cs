@@ -57,6 +57,7 @@ namespace CinephilesChoice.Controllers
             nominationViewModel.JsonVotes = JsonDataBuilder.CreateJsonVoteCollection(nominationViewModel);
             nominationViewModel.JsonNomineeNames = JsonDataBuilder.CreateJsonStringFromStringList(nominationViewModel.Nominations.Select(n => n.Nominee).ToList());
             nominationViewModel.MyVotes = await VoteAPI.GetByIdentityUserIdYearOfNominationAndCategory(userId, year, category);
+            nominationViewModel.AllYearCategoryCombinations = await GetAllYearCategoryCombinations();
             return View(nominationViewModel);
         }
         
@@ -244,6 +245,13 @@ namespace CinephilesChoice.Controllers
             Random random = new Random();
             int randomNumber = random.Next(movies.Count - 1);
             return movies[randomNumber];
+        }
+        private async Task<List<KeyValuePair<string, string>>> GetAllYearCategoryCombinations()
+        {
+            List<Nomination> nominations = await NominationAPI.GetAll();
+            nominations = nominations.OrderBy(n => int.Parse(n.Year)).ToList();
+            List<KeyValuePair<string, string>> yearCategoryCombinations = nominations.Select(n => new KeyValuePair<string, string>(n.Year, n.AwardCategory)).ToList();
+            return yearCategoryCombinations.Distinct().ToList();
         }
     }
 }
