@@ -98,9 +98,9 @@ namespace CinephilesChoice.Controllers
         }
         public async Task<ActionResult> MovieRecommendation(string year, string category, int? movieId)
         {
-            Movie movie = await MovieAPI.GetById(movieId.Value);
+            Movie movieVotedFor = await MovieAPI.GetById(movieId.Value);
             List<Movie> movies = await MovieAPI.GetAll();
-            movies = movies.Where(m => m.Title != movie.Title && m.Actors != null).Distinct().ToList();
+            movies = movies.Where(m => m.Title != movieVotedFor.Title && m.Actors != null).Distinct().ToList();
             Dictionary<Movie, int> movieRecommendations = BuildMovieDictionary(movies);
             RecommendationViewModel recommendation = new RecommendationViewModel()
             {
@@ -109,18 +109,8 @@ namespace CinephilesChoice.Controllers
             };
             foreach(Movie potentialRecommendation in movies)
             {
-                int movieRecommendationScore = 0;
-                if(potentialRecommendation.Director == movie.Director)
-                {
-                    movieRecommendationScore++;
-                }
-                movieRecommendationScore += CheckHowManyElementsTwoStringArraysHaveInCommon(potentialRecommendation.Actors.Split(", "), movie.Actors.Split(", "));
-                movieRecommendationScore += CheckHowManyElementsTwoStringArraysHaveInCommon(potentialRecommendation.Genre.Split(", "), movie.Genre.Split(", "));
-                if(potentialRecommendation.Year == movie.Year)
-                {
-                    movieRecommendationScore++;
-                }
-                movieRecommendations[potentialRecommendation] = movieRecommendationScore;
+
+                movieRecommendations[potentialRecommendation] = GetMovieRecommendationScore(potentialRecommendation, movieVotedFor);
             }
             recommendation.Movie = FindMovieDictionaryItemsWithGreatestScore(movieRecommendations).FirstOrDefault();
             return View(recommendation);
@@ -260,6 +250,21 @@ namespace CinephilesChoice.Controllers
         {
             List<int> scores = movieDictionary.OrderBy(k => k.Value).Select(k => k.Value).ToList();
             return movieDictionary.Where(r => r.Value == scores[scores.Count - 1]).Select(r => r.Key).ToList();
+        }
+        private int GetMovieRecommendationScore(Movie potentialRecommendation, Movie movieVotedFor)
+        {
+            int movieRecommendationScore = 0;
+            if (potentialRecommendation.Director == movieVotedFor.Director)
+            {
+                movieRecommendationScore++;
+            }
+            movieRecommendationScore += CheckHowManyElementsTwoStringArraysHaveInCommon(potentialRecommendation.Actors.Split(", "), movieVotedFor.Actors.Split(", "));
+            movieRecommendationScore += CheckHowManyElementsTwoStringArraysHaveInCommon(potentialRecommendation.Genre.Split(", "), movieVotedFor.Genre.Split(", "));
+            if (potentialRecommendation.Year == movieVotedFor.Year)
+            {
+                movieRecommendationScore++;
+            }
+            return movieRecommendationScore;
         }
     }
 }
