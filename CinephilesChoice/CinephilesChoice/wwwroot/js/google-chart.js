@@ -20,7 +20,16 @@
         'title': chartName,
         'width': 800,
         'height': 500,
-        is3D: true
+        is3D: true,
+        'backgroundColor': {
+            'fill': 'none'
+        },
+        'chartArea': {
+            'height':700
+        },
+        'tooltip': {
+            'ignoreBounds': true
+        }
     };
 
     // Instantiate and draw our chart, passing in some options.
@@ -30,11 +39,11 @@
 }
 
 function createNomineesArray(nomineesJsonString) {
-    return JSON.parse(nomineesJsonString.replace(/&quot;/g, "\"").replace(/""/g, "\"").replace("&#x27;", "'"));
+    return JSON.parse(nomineesJsonString.replace(/&quot;/g, "\"").replace(/""/g, "\"").replace(/&#x27;/g, "'"));
 }
 
 function createVotesObjectArray(votesJsonString) {
-    return JSON.parse(votesJsonString.replace(/&quot;/g, "\"").replace(/""/g, "\"").replace(/"{/g, "{").replace(/}"/g, "}").replace("&#x27;", "'"));
+    return JSON.parse(votesJsonString.replace(/&quot;/g, "\"").replace(/""/g, "\"").replace(/"{/g, "{").replace(/}"/g, "}").replace(/&#x27;/g, "'"));
 }
 
 function groupVotesByNominee(votesArray, nominees) {

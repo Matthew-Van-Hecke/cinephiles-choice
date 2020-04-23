@@ -9,7 +9,11 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+  color: #dddddd;
+}
+a:hover{
+    color: #aaaaaa;
+    text-decoration: none;
 }
 
 .btn-primary {
@@ -87,7 +91,7 @@ body {
     object-fit: fill;
     width: 100%;
     height: auto;
-    border: 8px solid #dddddd;
+    border: 8px solid #777777;
     z-index: 5;
     position: relative;
     border-radius: 25px;
@@ -115,4 +119,17 @@ body {
 }
 .movie-poster.oscar-winner {
     border: 8px solid green;
+}
+#chart-wrapper {
+    background-color: rgba(0, 0, 0, .5);
+    border: 3px groove white;
+    padding: 18px 18px 18px 18px;
+    border: 8px solid #444444;
+    border-radius: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 30px;
+}
+.row{
+    justify-content: center;
 }
