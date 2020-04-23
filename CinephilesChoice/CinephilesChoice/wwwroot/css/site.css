@@ -137,6 +137,7 @@ body {
     justify-content: left;
 }
 #cinephile-home-page ul {
-    list-style: none;
+    padding: 0;
+    list-style-type: none;
     font-size: 1.5em;
 }
