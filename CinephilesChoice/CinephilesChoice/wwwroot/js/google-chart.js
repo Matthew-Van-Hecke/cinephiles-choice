@@ -29,6 +29,11 @@
         },
         'tooltip': {
             'ignoreBounds': true
+        },
+        'legend': {
+            'textStyle': {
+                'color': '#ffffff'
+            }
         }
     };
 

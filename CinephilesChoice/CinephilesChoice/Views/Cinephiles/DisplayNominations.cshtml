@@ -6,9 +6,10 @@
 }
 
 <h1 class="mb-3">@Model.Nominations.First().Year - @Model.Nominations.First().AwardCategory</h1>
-<a class="p-2 btn-info rounded" asp-action="VoteOnNomination" asp-route-year="@Model.Nominations.First().Year" asp-route-category="@Model.Nominations.First().AwardCategory">Change Vote</a>
 
 <div id="chart-wrapper">
+    <a class="p-2 btn-info rounded" asp-action="VoteOnNomination" asp-route-year="@Model.Nominations.First().Year" asp-route-category="@Model.Nominations.First().AwardCategory">Change Vote</a>
+
     <div class="mt-3">
         <h5>Oscar Winner - @Model.Nominations.Where(n => n.IsWinner == true).First().Nominee</h5>
         <h5 id="your-vote"></h5>
