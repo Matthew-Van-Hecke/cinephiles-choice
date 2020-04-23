@@ -1,13 +1,11 @@
-﻿using System;
+﻿using CinephilesChoice.Models;
+using CinephilesChoice.Services;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using CinephilesChoice.Models;
-using CinephilesChoice.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 
 namespace CinephilesChoice.Controllers
 {
@@ -31,7 +29,7 @@ namespace CinephilesChoice.Controllers
         public async Task<ActionResult> NavigateToAwards()
         {
             List<Nomination> nominations = await NominationAPI.GetAll();
-            foreach(Nomination nomination in nominations)
+            foreach (Nomination nomination in nominations)
             {
                 nomination.Movie = await MovieAPI.GetById(nomination.MovieId);
             }
@@ -60,7 +58,7 @@ namespace CinephilesChoice.Controllers
             nominationViewModel.AllYearCategoryCombinations = await NominationAPI.GetAllYearCategoryCombinations();
             return View(nominationViewModel);
         }
-        
+
         public async Task<ActionResult> VoteOnNomination(string year, string category)
         {
             VoteViewModel voteViewModel = new VoteViewModel();
@@ -77,11 +75,11 @@ namespace CinephilesChoice.Controllers
         [HttpPost]
         public async Task<ActionResult> VoteOnNomination(VoteViewModel voteViewModel)
         {
-            if(voteViewModel.Vote.Id != 0)
+            if (voteViewModel.Vote.Id != 0)
             {
                 VoteAPI.Update(voteViewModel.Vote);
             }
-            else if(voteViewModel.Vote.Id == 0)
+            else if (voteViewModel.Vote.Id == 0)
             {
                 VoteAPI.Create(voteViewModel.Vote);
             };
@@ -108,7 +106,7 @@ namespace CinephilesChoice.Controllers
                 Year = year,
                 Category = category
             };
-            foreach(Movie potentialRecommendation in movies)
+            foreach (Movie potentialRecommendation in movies)
             {
                 movieRecommendations[potentialRecommendation] = GetMovieRecommendationScore(potentialRecommendation, movieVotedFor);
             }
@@ -199,7 +197,7 @@ namespace CinephilesChoice.Controllers
         private Dictionary<Movie, int> BuildMovieDictionary(List<Movie> movies)
         {
             Dictionary<Movie, int> movieDictionary = new Dictionary<Movie, int>();
-            foreach(Movie movie in movies)
+            foreach (Movie movie in movies)
             {
                 movieDictionary.Add(movie, 0);
             }
@@ -208,11 +206,11 @@ namespace CinephilesChoice.Controllers
         private int CheckHowManyElementsTwoStringArraysHaveInCommon(string[] arrayOne, string[] arrayTwo)
         {
             int count = 0;
-            foreach(string itemOne in arrayOne)
+            foreach (string itemOne in arrayOne)
             {
-                foreach(string itemTwo in arrayTwo)
+                foreach (string itemTwo in arrayTwo)
                 {
-                    if(itemOne == itemTwo)
+                    if (itemOne == itemTwo)
                     {
                         count++;
                     }
@@ -246,6 +244,6 @@ namespace CinephilesChoice.Controllers
             int randomNumber = random.Next(movies.Count - 1);
             return movies[randomNumber];
         }
-        
+
     }
 }

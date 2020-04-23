@@ -1,5 +1,3 @@
-using System;
-
 namespace CinephilesChoice.Models
 {
     public class ErrorViewModel

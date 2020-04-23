@@ -61,6 +61,10 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  color: white;
+  background-image: url(/media/background-felix-mooneeram.jpg);
+  background-size: cover;
+  background-attachment: fixed;
 }
 .footer {
   position: absolute;

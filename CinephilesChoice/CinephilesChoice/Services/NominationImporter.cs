@@ -1,8 +1,5 @@
 ﻿using CinephilesChoice.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CinephilesChoice.Services
 {
@@ -17,7 +14,7 @@ namespace CinephilesChoice.Services
                 nomination.Nominee = entry.Entity;
                 //if (MovieAPI.GetByTitleSync(entry.Film) != null)
                 //{
-                    nomination.MovieId = MovieAPI.GetByTitleSync(entry.Film).Id;
+                nomination.MovieId = MovieAPI.GetByTitleSync(entry.Film).Id;
                 //}
                 nomination.AwardCategory = entry.Category;
                 nomination.IsWinner = entry.IsWinner;

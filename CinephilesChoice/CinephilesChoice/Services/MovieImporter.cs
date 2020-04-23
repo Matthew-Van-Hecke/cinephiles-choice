@@ -1,13 +1,8 @@
 ﻿using CinephilesChoice.Models;
-using CinephilesChoice.Services;
 using CinephilesChoiceAPI.Services;
-using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CinephilesChoice.Services
 {
@@ -16,7 +11,7 @@ namespace CinephilesChoice.Services
         public static async void ImportMovies()
         {
             List<CSVEntry> moviesFromCsv = CSVReader.ReadCSV(@"../../../oscar_nominees_csv.csv");
-            foreach(CSVEntry entry in moviesFromCsv)
+            foreach (CSVEntry entry in moviesFromCsv)
             {
                 SendMovie(entry.Film, entry.Year);
             }

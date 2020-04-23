@@ -1,11 +1,6 @@
-﻿using CinephilesChoice.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace CinephilesChoice.ActionFilters
 {
@@ -33,7 +28,7 @@ namespace CinephilesChoice.ActionFilters
         }
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            
+
         }
     }
 }

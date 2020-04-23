@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CinephilesChoice.Models;
+using CinephilesChoice.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using CinephilesChoice.Models;
-using CinephilesChoice.Services;
 
 namespace CinephilesChoice.Controllers
 {
