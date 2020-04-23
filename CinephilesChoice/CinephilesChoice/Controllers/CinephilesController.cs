@@ -112,7 +112,8 @@ namespace CinephilesChoice.Controllers
 
                 movieRecommendations[potentialRecommendation] = GetMovieRecommendationScore(potentialRecommendation, movieVotedFor);
             }
-            recommendation.Movie = FindMovieDictionaryItemsWithGreatestScore(movieRecommendations).FirstOrDefault();
+            List<Movie> moviesWithHighestScore = FindMovieDictionaryItemsWithGreatestScore(movieRecommendations);
+            recommendation.Movie = PickRandomMovieFromList(moviesWithHighestScore);
             return View(recommendation);
         }
         // GET: Cinephile/Details/5
@@ -265,6 +266,12 @@ namespace CinephilesChoice.Controllers
                 movieRecommendationScore++;
             }
             return movieRecommendationScore;
+        }
+        private Movie PickRandomMovieFromList(List<Movie> movies)
+        {
+            Random random = new Random();
+            int randomNumber = random.Next(movies.Count - 1);
+            return movies[randomNumber];
         }
     }
 }
