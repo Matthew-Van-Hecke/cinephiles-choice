@@ -8,16 +8,16 @@
     <h1>Vote - @Model.Nominations.First().AwardCategory - @Model.Nominations.First().Year</h1>
 
 <div class="row">
-    <div class="col-md-4 vote">
+    <div class="col-8 vote justify-content-center">
         <form asp-action="VoteOnNomination" class="form-inline">
             <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="Vote.Id" />
             <input type="hidden" asp-for="Vote.MoviegoerId"  />
             <input type="hidden" asp-for="Vote.Moviegoer" />
             <select asp-for="Vote.NominationId" asp-items='new SelectList(Model.Nominations, "Id", "Nominee")'></select>
-            <div class="form-group pl-3">
+            <span class="form-group pl-3">
                 <input type="submit" value="Save" class="btn btn-primary pt-1 pb-1" />
-            </div>
+            </span>
         </form>
     </div>
 </div>
