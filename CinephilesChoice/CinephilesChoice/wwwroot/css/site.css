@@ -130,6 +130,13 @@ body {
     margin-right: 5px;
     margin-bottom: 30px;
 }
-.row{
+.row {
     justify-content: center;
+}
+.row.login-row {
+    justify-content: left;
+}
+#cinephile-home-page ul {
+    list-style: none;
+    font-size: 1.5em;
 }
