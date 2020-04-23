@@ -109,7 +109,11 @@ namespace CinephilesChoice.Controllers
             recommendation.Movie = movies.Where(m => m.Director == movie.Director && m.Title != movie.Title).FirstOrDefault();
             if(recommendation.Movie == null)
             {
-                recommendation.Movie = movies.Where(m => m.Actors.Contains(movie.Actors.Split(", ").First()) && m.Title != movie.Title).FirstOrDefault();
+                recommendation.Movie = movies.Where(m => CheckIfTwoStringArraysHaveAnElementInCommon(m.Genre.Split(", "), movie.Genre.Split(", ")) && m.Title != movie.Title).FirstOrDefault();
+            }
+            if(recommendation.Movie == null)
+            {
+                recommendation.Movie = movies.Where(m => CheckIfTwoStringArraysHaveAnElementInCommon(m.Actors.Split(", "), movie.Actors.Split(", ")) && m.Title != movie.Title).FirstOrDefault();
             }
             if(recommendation.Movie == null)
             {
@@ -223,6 +227,20 @@ namespace CinephilesChoice.Controllers
                 nominationViewModel = null;
             }
             return nominationViewModel;
+        }
+        private bool CheckIfTwoStringArraysHaveAnElementInCommon(string[] arrayOne, string[] arrayTwo)
+        {
+            foreach(string itemOne in arrayOne)
+            {
+                foreach(string itemTwo in arrayTwo)
+                {
+                    if(itemOne == itemTwo)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }
