@@ -15,12 +15,13 @@
         <div id="chart"></div>
         <div>
             <h5>Filter chart by year of voting:</h5>
-            <button onclick="drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', '@Model.Year - @Model.Category', '')">All Time</button>
-        </div>
+            <button class="btn-light rounded" onclick="drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', '@Model.Year - @Model.Category', '')">All Time</button>
+
             @foreach (string year in Model.Votes.OrderBy(v => v.Date).GroupBy(v => v.Date.Year).Select(v => v.First().Date.Year.ToString()))
             {
-                <button onclick="drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', '@Model.Year - @Model.Category - User Votes from @year ', '', @year)">@year</button>
+                <button class="btn-light rounded" onclick="drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', '@Model.Year - @Model.Category - User Votes from @year ', '', @year)">@year</button>
             }
+        </div>
         <div>
             @if (Model.AllYearCategoryCombinations.IndexOf(Model.AllYearCategoryCombinations.Where(c => c.Key == Model.Year.ToString() && c.Value == Model.Category).First()) != 0)
             {
