@@ -101,6 +101,7 @@ namespace CinephilesChoice.Controllers
             Movie movie = await MovieAPI.GetById(movieId.Value);
             List<Movie> movies = await MovieAPI.GetAll();
             movies = movies.Where(m => m.Actors != null).ToList();
+            Dictionary<Movie, int> movieRecommendations = BuildMovieDictionary(movies);
             RecommendationViewModel recommendation = new RecommendationViewModel()
             {
                 Year = year,
@@ -227,6 +228,15 @@ namespace CinephilesChoice.Controllers
                 nominationViewModel = null;
             }
             return nominationViewModel;
+        }
+        private Dictionary<Movie, int> BuildMovieDictionary(List<Movie> movies)
+        {
+            Dictionary<Movie, int> movieDictionary = new Dictionary<Movie, int>();
+            foreach(Movie movie in movies)
+            {
+                movieDictionary.Add(movie, 0);
+            }
+            return movieDictionary;
         }
         private bool CheckIfTwoStringArraysHaveAnElementInCommon(string[] arrayOne, string[] arrayTwo)
         {
