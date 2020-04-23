@@ -17,9 +17,16 @@
     <h5>Filter chart by year of voting:</h5>
     <button onclick="drawChart('@Model.JsonNomineeNames', '@Model.JsonVotes', '@Model.Year - @Model.Category', '@Model.GetVoteByYear(DateTime.Now.Year.ToString())')">All Time</button>
 </div>
-@*<div>
-    <a asp-action="DisplayNominations" asp-route-year="">content</a>
-</div>*@
+<div>
+    @if (Model.AllYearCategoryCombinations.IndexOf(Model.AllYearCategoryCombinations.Where(c => c.Key == Model.Year.ToString() && c.Value == Model.Category).First()) != 0)
+    {
+        <a asp-action="DisplayNominations" asp-route-year="@Model.AllYearCategoryCombinations[Model.AllYearCategoryCombinations.IndexOf(Model.AllYearCategoryCombinations.Where(c => c.Key == Model.Year.ToString() && c.Value == Model.Category).First()) - 1].Key" asp-route-category="@Model.AllYearCategoryCombinations[Model.AllYearCategoryCombinations.IndexOf(Model.AllYearCategoryCombinations.Where(c => c.Key == Model.Year.ToString() && c.Value == Model.Category).First()) - 1].Value">Previous</a>
+    }
+    @if (Model.AllYearCategoryCombinations.IndexOf(Model.AllYearCategoryCombinations.Where(c => c.Key == Model.Year.ToString() && c.Value == Model.Category).First()) != Model.AllYearCategoryCombinations.Count - 1)
+    {
+        <a asp-action="DisplayNominations" asp-route-year="@Model.AllYearCategoryCombinations[Model.AllYearCategoryCombinations.IndexOf(Model.AllYearCategoryCombinations.Where(c => c.Key == Model.Year.ToString() && c.Value == Model.Category).First()) + 1].Key" asp-route-category="@Model.AllYearCategoryCombinations[Model.AllYearCategoryCombinations.IndexOf(Model.AllYearCategoryCombinations.Where(c => c.Key == Model.Year.ToString() && c.Value == Model.Category).First()) + 1].Value">Next</a>
+    }
+</div>
 
     @foreach (string year in Model.Votes.OrderBy(v => v.Date).GroupBy(v => v.Date.Year).Select(v => v.First().Date.Year.ToString()))
     {
