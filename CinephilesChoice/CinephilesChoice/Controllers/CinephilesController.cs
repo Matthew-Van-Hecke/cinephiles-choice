@@ -109,7 +109,6 @@ namespace CinephilesChoice.Controllers
             };
             foreach(Movie potentialRecommendation in movies)
             {
-
                 movieRecommendations[potentialRecommendation] = GetMovieRecommendationScore(potentialRecommendation, movieVotedFor);
             }
             List<Movie> moviesWithHighestScore = FindMovieDictionaryItemsWithGreatestScore(movieRecommendations);
@@ -117,9 +116,11 @@ namespace CinephilesChoice.Controllers
             return View(recommendation);
         }
         // GET: Cinephile/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details()
         {
-            return View();
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Moviegoer moviegoer = await MoviegoerAPI.GetByUserId(userId);
+            return View(moviegoer);
         }
 
         // GET: Cinephile/Create
@@ -149,26 +150,20 @@ namespace CinephilesChoice.Controllers
         }
 
         // GET: Cinephile/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit()
         {
-            return View();
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Moviegoer moviegoer = await MoviegoerAPI.GetByUserId(userId);
+            return View(moviegoer);
         }
 
         // POST: Cinephile/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Moviegoer moviegoer)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            MoviegoerAPI.Update(moviegoer);
+            return RedirectToAction(nameof(Details));
         }
 
         // GET: Cinephile/Delete/5
