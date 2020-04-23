@@ -133,7 +133,7 @@ body {
 .row {
     justify-content: center;
 }
-.row.login-row {
+.row.left-row {
     justify-content: left;
 }
 #cinephile-home-page ul {
