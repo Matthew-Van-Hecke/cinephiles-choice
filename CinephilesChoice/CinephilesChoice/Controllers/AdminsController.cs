@@ -1,14 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CinephilesChoice.Models;
+using CinephilesChoice.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CinephilesChoice.Controllers
 {
     public class AdminsController : Controller
     {
         // GET: Admin
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            List<Moviegoer> moviegoers = await MoviegoerAPI.GetAll();
+            return View(moviegoers);
         }
 
         // GET: Admin/Details/5
