@@ -29,12 +29,8 @@ namespace CinephilesChoice.Controllers
         public async Task<ActionResult> NavigateToAwards()
         {
             List<Nomination> nominations = await NominationAPI.GetAll();
-            foreach (Nomination nomination in nominations)
-            {
-                nomination.Movie = await MovieAPI.GetById(nomination.MovieId);
-            }
-            List<IGrouping<string, Nomination>> nominationsGroupedByYear = nominations.GroupBy(n => n.Year).ToList();
-            List<List<IGrouping<string, Nomination>>> groupedNominations = nominationsGroupedByYear.Select(g => g.GroupBy(n => n.AwardCategory).ToList()).ToList();
+            List<YearCategoryModel> nominationsBasicInfo = nominations.Select(n => new YearCategoryModel(n.Year, n.AwardCategory)).ToList();
+            List<KeyValuePair<string, List<YearCategoryModel>>> groupedNominations = nominationsBasicInfo.GroupBy(n => n.Year).Select(g => new KeyValuePair<string, List<YearCategoryModel>>(g.Key, g.GroupBy(c => c.Category).Select(g => g.First()).ToList())).ToList();
             return View(groupedNominations);
         }
         public async Task<ActionResult> DisplayNominations(string year, string category)

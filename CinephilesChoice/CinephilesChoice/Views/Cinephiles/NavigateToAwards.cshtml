@@ -1,4 +1,4 @@
-﻿@model List<List<IGrouping<string, CinephilesChoice.Models.Nomination>>>
+﻿@model List<KeyValuePair<string, List<CinephilesChoice.Models.YearCategoryModel>>>
 
 @{
     ViewData["Title"] = "Navigate To Awards";
@@ -17,12 +17,12 @@
 <div>
     @for(int i = 0; i < Model.Count; i++)
     {
-        <button class="btn-light p-2 rounded" id='year-@i' onclick="displayAwardCategories('awards-@i')">@Model[i][0].First().Year</button>
+        <button class="btn-light p-2 rounded" id='year-@i' onclick="displayAwardCategories('awards-@i')">@Model[i].Key</button>
         <div class="row" id='awards-@i' style="display:none;">
-            @for(int j = 0; j < Model[i].ToList().Count; j++)
+            @for(int j = 0; j < Model[i].Value.Count; j++)
             {
                 <div class="col-md-4">
-                    <a asp-action="DisplayNominations" asp-route-year="@Model[i][j].First().Year" asp-route-category="@Model[i][j].First().AwardCategory">@Model[i][j].Key</a>
+                    <a asp-action="DisplayNominations" asp-route-year="@Model[i].Value[j].Year" asp-route-category="@Model[i].Value[j].Category">@Model[i].Value[j].Category</a>
                 </div>
             }
         </div>
