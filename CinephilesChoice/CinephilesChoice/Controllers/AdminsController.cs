@@ -3,6 +3,7 @@ using CinephilesChoice.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CinephilesChoice.Controllers
@@ -17,9 +18,11 @@ namespace CinephilesChoice.Controllers
         }
 
         // GET: Admin/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> MoviegoerDetails(int id)
         {
-            return View();
+            List<Moviegoer> moviegoers = await MoviegoerAPI.GetAll();
+            Moviegoer moviegoer = moviegoers.Where(m => m.Id == id).FirstOrDefault();
+            return View(moviegoer);
         }
 
         // GET: Admin/Create
