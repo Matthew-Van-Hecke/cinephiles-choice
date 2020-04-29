@@ -49,19 +49,21 @@ namespace CinephilesChoice.Controllers
         }
 
         // GET: Admin/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> EditMoviegoer(int id)
         {
-            return View();
+            List<Moviegoer> moviegoers = await MoviegoerAPI.GetAll();
+            Moviegoer moviegoer = moviegoers.Where(m => m.Id == id).First();
+            return View(moviegoer);
         }
 
         // POST: Admin/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult EditMoviegoer(int id, Moviegoer moviegoer)
         {
             try
             {
-                // TODO: Add update logic here
+                MoviegoerAPI.Update(moviegoer);
 
                 return RedirectToAction(nameof(Index));
             }
