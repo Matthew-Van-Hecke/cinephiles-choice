@@ -8,9 +8,9 @@ namespace CinephilesChoice.Services
 {
     public static class MovieImporter
     {
-        public static async void ImportMovies()
+        public static async void ImportMovies(string filePath)
         {
-            List<CSVEntry> moviesFromCsv = CSVReader.ReadCSV(@"../../../oscar_nominees_csv.csv");
+            List<CSVEntry> moviesFromCsv = CSVReader.ReadCSV(filePath);
             foreach (CSVEntry entry in moviesFromCsv)
             {
                 SendMovie(entry.Film, entry.Year);

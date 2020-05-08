@@ -108,5 +108,22 @@ namespace CinephilesChoice.Controllers
                 return View();
             }
         }
+        public ActionResult ImportNominations()
+        {
+            return View();
+        }
+        public ActionResult AddMoviesAndNominationsToDatabase(ImportNominationsViewModel viewModel)
+        {
+            try
+            {
+                MovieImporter.ImportMovies(viewModel.FilePath);
+                NominationImporter.ImportNominations(viewModel.FilePath);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return RedirectToAction(nameof(ImportNominations));
+            }
+        }
     }
 }

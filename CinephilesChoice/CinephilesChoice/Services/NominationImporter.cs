@@ -5,9 +5,9 @@ namespace CinephilesChoice.Services
 {
     public static class NominationImporter
     {
-        public static void ImportNominations()
+        public static void ImportNominations(string filePath)
         {
-            List<CSVEntry> lines = CSVReader.ReadCSV("../../../oscar_nominees_csv.csv");
+            List<CSVEntry> lines = CSVReader.ReadCSV(filePath);
             foreach (CSVEntry entry in lines)
             {
                 Nomination nomination = new Nomination();

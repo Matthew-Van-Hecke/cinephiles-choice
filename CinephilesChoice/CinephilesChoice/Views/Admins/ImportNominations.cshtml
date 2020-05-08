@@ -1,0 +1,20 @@
+﻿@model CinephilesChoice.Models.ImportNominationsViewModel
+
+@{
+    ViewData["Title"] = "ImportNominations";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h1>ImportNominations</h1>
+
+<form asp-action="AddMoviesAndNominationsToDatabase">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="FilePath" class="control-label"></label>
+        <input asp-for="FilePath" class="form-control" />
+        <span asp-validation-for="FilePath" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
