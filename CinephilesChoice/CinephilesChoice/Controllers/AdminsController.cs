@@ -1,15 +1,22 @@
 ﻿using CinephilesChoice.Models;
 using CinephilesChoice.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace CinephilesChoice.Controllers
 {
     public class AdminsController : Controller
     {
+        RoleManager<IdentityRole> _roleManager;
+        public AdminsController(RoleManager<IdentityRole> roleManager)
+        {
+            _roleManager = roleManager;
+        }
         // GET: Admin
         public async Task<ActionResult> Index()
         {
@@ -52,19 +59,25 @@ namespace CinephilesChoice.Controllers
         public async Task<ActionResult> EditMoviegoer(int id)
         {
             List<Moviegoer> moviegoers = await MoviegoerAPI.GetAll();
-            Moviegoer moviegoer = moviegoers.Where(m => m.Id == id).First();
-            return View(moviegoer);
+            MoviegoerViewModel viewModel = new MoviegoerViewModel();
+            viewModel.Moviegoer = moviegoers.Where(m => m.Id == id).First();
+            List<KeyValuePair<string, string>> rolesList = _roleManager.Roles.Select(r => new KeyValuePair<string, string>(r.Id, r.Name)).ToList();
+            viewModel.RoleManager = new Dictionary<string, string>();
+            foreach(KeyValuePair<string, string> role in rolesList)
+            {
+                viewModel.RoleManager.Add(role.Key, role.Value);
+            }
+            return View(viewModel);
         }
 
         // POST: Admin/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditMoviegoer(int id, Moviegoer moviegoer)
+        public ActionResult EditMoviegoer(int id, MoviegoerViewModel moviegoerViewModel)
         {
             try
             {
-                MoviegoerAPI.Update(moviegoer);
-
+                MoviegoerAPI.Update(moviegoerViewModel.Moviegoer);
                 return RedirectToAction(nameof(Index));
             }
             catch
