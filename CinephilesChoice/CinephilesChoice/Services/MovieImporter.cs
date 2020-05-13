@@ -2,6 +2,7 @@
 using CinephilesChoiceAPI.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 
 namespace CinephilesChoice.Services
@@ -27,6 +28,7 @@ namespace CinephilesChoice.Services
             if (movie != null && movie.Year != null)
             {
                 movie.Year = movie.Year.Substring(0, 4);
+                Console.WriteLine(movie.Title + " added");
             }
             //string jsonMovie = JsonConvert.SerializeObject(movie);
             MovieAPI.Create(movie);

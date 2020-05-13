@@ -20,9 +20,9 @@ namespace CinephilesChoiceAPI.Controllers
         }
         // GET: api/Home
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ContentResult Get()
         {
-            return new string[] { "value1", "value2" };
+            return base.Content("<h1>Welcome to CinephilesChoiceAPI!</h1>", "text/html");
         }
 
         // GET: api/Home/5
