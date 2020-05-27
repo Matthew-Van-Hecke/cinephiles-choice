@@ -25,7 +25,7 @@ namespace CinephilesChoiceAPI.Services
             var response = client.GetAsync(@"http://www.omdbapi.com/?apikey=" + movieQuery).GetAwaiter().GetResult();
             var data = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             movie = JsonConvert.DeserializeObject<JObject>(data);
-            if (movie["Response"].ToString() == "False" && year != 0 && attemptNumber < 2)
+            if (movie["Response"].ToString() == "False" && year != 0 && attemptNumber < 3)
             {
                 switch (attemptNumber)
                 {
@@ -35,6 +35,12 @@ namespace CinephilesChoiceAPI.Services
                     case 1:
                         //semaphore.Release();
                         return GetMovie(movieTitle, (year - 2), (attemptNumber + 1));
+                    case 2:
+                        movie = new JObject();
+                        movie.Add("title", movieTitle);
+                        movie.Add("year", year);
+                        movie.Add("poster", "/media/NoPoster.jpg");
+                        break;
                 }
             }
             //semaphore.Release();
