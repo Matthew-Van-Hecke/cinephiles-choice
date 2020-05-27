@@ -125,5 +125,10 @@ namespace CinephilesChoice.Controllers
                 return RedirectToAction(nameof(ImportNominations));
             }
         }
+        public async Task<ActionResult> ListMovies()
+        {
+            List<Movie> movies = await MovieAPI.GetAll();
+            return View(movies);
+        }
     }
 }

@@ -1,0 +1,48 @@
+﻿@model List<CinephilesChoice.Models.Movie>
+
+@{
+    ViewData["Title"] = "ListMovies";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h1>ListMovies</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Director)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Director)
+            </td>
+            <td>
+                <a asp-action="EditMovie" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="MovieDetails" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="DeleteMovie" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
