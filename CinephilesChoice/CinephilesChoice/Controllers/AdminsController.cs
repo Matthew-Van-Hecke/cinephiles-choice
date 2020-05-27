@@ -130,5 +130,10 @@ namespace CinephilesChoice.Controllers
             List<Movie> movies = await MovieAPI.GetAll();
             return View(movies);
         }
+        public async Task<ActionResult> MovieDetails(int id)
+        {
+            Movie movie = await MovieAPI.GetById(id);
+            return View(movie);
+        }
     }
 }
