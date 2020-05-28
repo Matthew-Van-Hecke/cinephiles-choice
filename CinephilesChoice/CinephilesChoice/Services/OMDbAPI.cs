@@ -38,7 +38,7 @@ namespace CinephilesChoiceAPI.Services
                     case 2:
                         movie = new JObject();
                         movie.Add("title", movieTitle);
-                        movie.Add("year", year);
+                        movie.Add("year", year + 1);
                         movie.Add("poster", "/media/NoPoster.jpg");
                         break;
                 }

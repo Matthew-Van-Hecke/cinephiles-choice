@@ -135,5 +135,16 @@ namespace CinephilesChoice.Controllers
             Movie movie = await MovieAPI.GetById(id);
             return View(movie);
         }
+        public async Task<ActionResult> EditMovie(int id)
+        {
+            Movie movie = await MovieAPI.GetById(id);
+            return View(movie);
+        }
+        [HttpPost]
+        public ActionResult EditMovie(Movie editedMovie)
+        {
+            MovieAPI.Update(editedMovie);
+            return RedirectToAction(nameof(MovieDetails), editedMovie);
+        }
     }
 }
