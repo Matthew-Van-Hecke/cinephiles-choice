@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http.Cors;
 using CinephilesChoiceAPI.Contracts;
 using CinephilesChoiceAPI.Models;
 using Microsoft.AspNetCore.Http;
@@ -22,6 +23,7 @@ namespace CinephilesChoiceAPI.Controllers
         }
         // GET: api/Nominations
         [HttpGet]
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
         public IEnumerable<Nomination> Get()
         {
             return _repo.Nomination.GetNominations();
